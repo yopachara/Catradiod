@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * Created by mertsimsek on 01/07/15.
  */
@@ -315,7 +314,11 @@ public class RadioPlayerService extends Service implements PlayerCallback {
 
     @Override
     public void playerMetadata(String s, String s2) {
-        notifyMetaDataChanged(s, s2);
+        if (s != null && !s.isEmpty()) {
+            notifyMetaDataChanged(s, s2);
+        } else {
+            notifyMetaDataChanged("test s", "test s2");
+        }
     }
 
     @Override
@@ -354,7 +357,7 @@ public class RadioPlayerService extends Service implements PlayerCallback {
         }
     }
 
-    private void notifyErrorOccured(){
+    private void notifyErrorOccured() {
         for (RadioListener mRadioListener : mListenerList) {
             mRadioListener.onError();
         }

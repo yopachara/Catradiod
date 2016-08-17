@@ -44,5 +44,14 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/aacdecoder-android-0.8.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile "com.squareup.retrofit2:converter-moshi:2.1.0"
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
+    // RxAndroid
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.0'
+    //RxBindings
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
 }

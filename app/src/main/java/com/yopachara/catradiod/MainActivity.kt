@@ -1,10 +1,17 @@
 package com.yopachara.catradiod
 
+import android.net.Network
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import com.yopachara.catradiod.libraries.radio.RadioListener
 import com.yopachara.catradiod.libraries.radio.RadioManager
+import com.yopachara.catradiod.services.CatService
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity(), RadioListener {
     private val RADIO_URL: String = "http://catradio.mylive.in.th:8000/live"
@@ -17,6 +24,10 @@ class MainActivity : AppCompatActivity(), RadioListener {
         mRadioManager.registerListener(this)
         mRadioManager.setLogging(true)
         buttonControlStart.setOnClickListener { view -> initializeUI() }
+
+
+
+
     }
 
     fun initializeUI() {
@@ -64,7 +75,7 @@ class MainActivity : AppCompatActivity(), RadioListener {
 
     override fun onMetaDataReceived(s: String, s1: String) {
         //TODO Check metadata values. Singer name, song name or whatever you have.
-        onMetaDataReceived("sd","asd")
+        Log.d(s,s1)
     }
 
     override fun onError() {
