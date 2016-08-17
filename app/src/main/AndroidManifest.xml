@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.yopachara.catradiod">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <service android:name=".libraries.media.MediaPlayerService">
+            <intent-filter>
+                <action android:name="library.notification.media.INTENT_PLAYPAUSE"/>
+                <action android:name="library.notification.media.INTENT_OPENPLAYER"/>
+                <action android:name="library.notification.media.INTENT_CANCEL"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".libraries.radio.RadioPlayerService">
+            <intent-filter>
+                <action android:name="library.notification.radio.INTENT_PLAYPAUSE"/>
+                <action android:name="library.notification.radio.INTENT_OPENPLAYER"/>
+                <action android:name="library.notification.radio.INTENT_CANCEL"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".libraries.broadcast.PlayerControllerBroadcast">
+            <intent-filter>
+                <action android:name="library.ACTION_STOP_RADIOPLAYER"/>
+                <action android:name="library.ACTION_STOP_MEDIAPLAYER"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
