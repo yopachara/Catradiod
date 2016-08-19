@@ -42,4 +42,8 @@
 
     <style name="NotificationAction.Collapse" parent="@style/NotificationAction">
     </style>
+
+    <style name="ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:displayOptions">homeAsUp</item>
+    </style>
 </resources>

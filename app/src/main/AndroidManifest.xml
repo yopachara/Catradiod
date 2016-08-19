@@ -6,12 +6,13 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
+        android:name=".CatradiodAPP"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -41,6 +42,11 @@
                 <action android:name="library.ACTION_STOP_MEDIAPLAYER"/>
             </intent-filter>
         </receiver>
+
+        <!-- Fabric -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="62459599b8fa6ebc19b4a9028430ab1fe090a380" />
     </application>
 
 </manifest>

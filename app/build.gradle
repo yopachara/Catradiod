@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'io.fabric'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
@@ -33,6 +33,7 @@ repositories {
         dirs 'libs'
     }
     mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 dependencies {
@@ -54,4 +55,11 @@ dependencies {
     //RxBindings
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
+    // SlidingUpPanel
+    compile 'com.sothree.slidinguppanel:library:3.3.0'
+
+    // Fabric
+    compile('com.twitter.sdk.android:twitter:2.0.0@aar') {
+        transitive = true;
+    }
 }
