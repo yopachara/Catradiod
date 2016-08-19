@@ -40,11 +40,11 @@ public class MediaPlayerService extends Service implements
     /**
      * PLAY/PAUSE intent and OPENPLAYER intent strings
      */
-    private static final String NOTIFICATION_INTENT_PLAY_PAUSE = "co.mobiwise.library.notification.media.INTENT_PLAYPAUSE";
+    private static final String NOTIFICATION_INTENT_PLAY_PAUSE = "com.yopachara.catradiod.libraries.notification.media.INTENT_PLAYPAUSE";
 
-    private static final String NOTIFICATION_INTENT_CANCEL = "co.mobiwise.library.notification.media.INTENT_CANCEL";
+    private static final String NOTIFICATION_INTENT_CANCEL = "com.yopachara.catradiod.libraries.notification.media.INTENT_CANCEL";
 
-    private static final String NOTIFICATION_INTENT_OPEN_PLAYER = "co.mobiwise.library.notification.media.INTENT_OPENPLAYER";
+    private static final String NOTIFICATION_INTENT_OPEN_PLAYER = "com.yopachara.catradiod.libraries.notification.media.INTENT_OPENPLAYER";
 
     /**
      * Notification current values
