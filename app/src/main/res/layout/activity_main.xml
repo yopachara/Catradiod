@@ -39,17 +39,22 @@
         android:id="@+id/dragView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="@color/tw__composer_black"
         android:clickable="true"
         android:focusable="false"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonControlStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="START"/>
+
+        <ImageView
+            android:id="@+id/notification_play"
+            style="@style/NotificationAction.Play"
+            android:src="@drawable/btn_playback_play"/>
+
+        <ImageView
+            android:id="@+id/notification_collapse"
+            style="@style/NotificationAction.Collapse"
+            android:src="@drawable/btn_notification_collapse"/>
+
 
         <TextView
             android:id="@+id/textviewControl"
@@ -57,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/buttonControlStart"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:textColor="@color/tw__composer_white"
             android:layout_marginLeft="20dp"
             android:text="RADIO STATE : IDLE"/>
     </LinearLayout>

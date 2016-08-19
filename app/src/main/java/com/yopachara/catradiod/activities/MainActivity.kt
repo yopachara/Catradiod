@@ -20,8 +20,11 @@ class MainActivity : AppCompatActivity(), RadioListener {
         setContentView(R.layout.activity_main)
         mRadioManager.registerListener(this)
         mRadioManager.setLogging(true)
-        buttonControlStart.setOnClickListener { view -> initializeUI() }
-
+        notification_play.setOnClickListener { view -> initializeUI() }
+        notification_collapse.setOnClickListener {
+            mRadioManager.stopRadio()
+        }
+        slidingLayout.setAnchorPoint(0.5f)
         slidingLayout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View, slideOffset: Float) {
                 Log.i("onPanelSlide", "onPanelSlide, offset " + slideOffset)
