@@ -33,11 +33,11 @@ public class RadioPlayerService extends Service implements PlayerCallback {
     /**
      * Notification action intent strings
      */
-    private static final String NOTIFICATION_INTENT_PLAY_PAUSE = "com.yopachara.catradiod.library.notification.radio.INTENT_PLAYPAUSE";
+    private static final String NOTIFICATION_INTENT_PLAY_PAUSE = "com.yopachara.catradiod.libraries.notification.radio.INTENT_PLAYPAUSE";
 
-    private static final String NOTIFICATION_INTENT_CANCEL = "com.yopachara.catradiod.library.notification.radio.INTENT_CANCEL";
+    private static final String NOTIFICATION_INTENT_CANCEL = "com.yopachara.catradiod.libraries.notification.radio.INTENT_CANCEL";
 
-    private static final String NOTIFICATION_INTENT_OPEN_PLAYER = "com.yopachara.catradiod.library.notification.radio.INTENT_OPENPLAYER";
+    private static final String NOTIFICATION_INTENT_OPEN_PLAYER = "com.yopachara.catradiod.libraries.notification.radio.INTENT_OPENPLAYER";
 
     /**
      * Notification current values

@@ -88,7 +88,7 @@ public class MediaPlayerService extends Service implements
      * Stop action. If another radioplayer will start.It needs
      * to send broadcast to stop this service.
      */
-    public static final String ACTION_RADIOPLAYER_STOP = "co.mobiwise.library.ACTION_STOP_RADIOPLAYER";
+    public static final String ACTION_RADIOPLAYER_STOP = "com.yopachara.libraries.ACTION_STOP_RADIOPLAYER";
 
     /**
      * Media Player
