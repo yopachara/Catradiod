@@ -2,6 +2,7 @@ package com.yopachara.catradiod.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.*
@@ -11,16 +12,29 @@ import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterException
 import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.tweetui.SearchTimeline
+import com.twitter.sdk.android.tweetui.TimelineResult
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter
 import com.yopachara.catradiod.R
+import com.yopachara.catradiod.adapters.CustomTweetTimelineListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import com.yopachara.catradiod.libraries.radio.RadioListener
 import com.yopachara.catradiod.libraries.radio.RadioManager
 import kotlinx.android.synthetic.main.sliding_layout.*
 
-class MainActivity : AppCompatActivity(), RadioListener {
+class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRefreshListener {
     internal var mRadioManager: RadioManager = RadioManager.with(this)
     private var qualitySound = ""
+    val actionCallback = object : Callback<Tweet>() {
+        override fun success(result: Result<Tweet>?) {
+            progressBar.setVisibility(View.GONE)
+        }
+
+        override fun failure(exception: TwitterException?) {
+        }
+    }
+    val searchTimeline: SearchTimeline = SearchTimeline.Builder().query("#จดหมายเด็กแมว").build()
+    val adapter: CustomTweetTimelineListAdapter = CustomTweetTimelineListAdapter(this,searchTimeline)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,22 +60,22 @@ class MainActivity : AppCompatActivity(), RadioListener {
                 Log.i("onPanelStateChanged", "onPanelStateChanged " + newState)
             }
         })
+        swipeRefreshLayout.setOnRefreshListener(this)
+        timeline_list.setAdapter(adapter)
 
-        val actionCallback = object : Callback<Tweet>() {
-            override fun success(result: Result<Tweet>?) {
-                progressBar.setVisibility(View.GONE)
-                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onRefresh() {
+        adapter.refresh(object : Callback<TimelineResult<Tweet>>() {
+            override fun success(result: Result<TimelineResult<Tweet>>?) {
+                Log.d("onRefresh", "success")
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             override fun failure(exception: TwitterException?) {
-                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.d("onRefresh", exception.toString())
             }
-        }
-        val searchTimeline = SearchTimeline.Builder().query("#หนังหน้าแมว").build()
-
-        val adapter = TweetTimelineListAdapter.Builder(this).setTimeline(searchTimeline).setOnActionCallback(actionCallback).build()
-        timeline_list.setAdapter(adapter)
-
+        })
     }
 
     fun initializeUI() {

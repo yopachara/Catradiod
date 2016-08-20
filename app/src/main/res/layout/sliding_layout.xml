@@ -39,8 +39,7 @@
         android:layout_marginStart="64dp"
         app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
         android:layout_marginEnd="63dp" app:layout_constraintRight_toRightOf="@+id/dragView"
+        tools:layout_constraintRight_creator="1" tools:layout_constraintLeft_creator="1"
         app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
-        app:layout_constraintTop_toTopOf="@+id/notification_collapse"
-        app:layout_constraintHorizontal_bias="0.25" app:layout_constraintVertical_bias="0.57"
-        tools:layout_constraintRight_creator="1" tools:layout_constraintLeft_creator="1"/>
+        app:layout_constraintTop_toTopOf="@+id/notification_collapse"/>
 </android.support.constraint.ConstraintLayout>

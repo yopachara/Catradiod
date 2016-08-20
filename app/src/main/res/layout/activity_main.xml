@@ -25,6 +25,7 @@
             android:layout_width="384dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"/>
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -37,13 +38,22 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 android:elevation="4dp"
+                android:titleTextColor="@color/tw__composer_white"
                 sothree:theme="@style/ActionBar"/>
 
-            <ListView android:id="@+id/timeline_list"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:divider="#e1e8ed"
-                      android:dividerHeight="1dp"/>
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView android:id="@+id/timeline_list"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:divider="#e1e8ed"
+                          android:dividerHeight="1dp"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
         </LinearLayout>
     </RelativeLayout>
 
