@@ -42,6 +42,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
     testCompile 'junit:junit:4.12'
     compile files('libs/aacdecoder-android-0.8.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -54,6 +56,8 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.0'
     //RxBindings
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    // Loging
+    compile 'com.jakewharton.timber:timber:4.3.0'
 
     // SlidingUpPanel
     compile 'com.sothree.slidinguppanel:library:3.3.0'
