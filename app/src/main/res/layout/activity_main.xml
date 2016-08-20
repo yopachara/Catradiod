@@ -1,69 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.sothree.slidinguppanel.SlidingUpPanelLayout
+    android:id="@+id/slidingLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/slidingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
     sothree:umanoDragView="@+id/dragView"
     sothree:umanoOverlay="true"
-    sothree:umanoPanelHeight="68dp"
+    sothree:umanoPanelHeight="48dp"
     sothree:umanoParallaxOffset="100dp"
     sothree:umanoShadowHeight="4dp"
     tools:context="com.yopachara.catradiod.activities.MainActivity">
 
-    <!-- MAIN CONTENT -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/main"
+    <!-- MAIN CONTENT -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="384dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"/>
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:clickable="true"
-            android:focusable="false"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:text="Main Content"
-            android:textSize="16sp"/>
-    </FrameLayout>
+            android:layout_height="match_parent" android:orientation="vertical"
+            tools:layout_editor_absoluteX="0dp" tools:layout_editor_absoluteY="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                sothree:theme="@style/ActionBar"/>
+
+            <ListView android:id="@+id/timeline_list"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:divider="#e1e8ed"
+                      android:dividerHeight="1dp"/>
+        </LinearLayout>
+    </RelativeLayout>
 
 
     <!-- SLIDING LAYOUT -->
-    <LinearLayout
+    <include
         android:id="@+id/dragView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/tw__composer_black"
-        android:clickable="true"
-        android:focusable="false"
-        android:orientation="horizontal">
+        layout="@layout/sliding_layout"/>
 
 
-        <ImageView
-            android:id="@+id/notification_play"
-            style="@style/NotificationAction.Play"
-            android:src="@drawable/btn_playback_play"/>
-
-        <ImageView
-            android:id="@+id/notification_collapse"
-            style="@style/NotificationAction.Collapse"
-            android:src="@drawable/btn_notification_collapse"/>
-
-
-        <TextView
-            android:id="@+id/textviewControl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonControlStart"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/tw__composer_white"
-            android:layout_marginLeft="20dp"
-            android:text="RADIO STATE : IDLE"/>
-    </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

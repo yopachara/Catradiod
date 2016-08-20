@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Catradiod</string>
+
+    <!-- URL Catradio -->
+    <string name="radio_url_hq">http://catradio.mylive.in.th:8000/live</string>
+    <string name="radio_url_lq">http://catradio.mylive.in.th:8000/livelq</string>
+
+    <!-- Menu -->
+    <string name="action_settings">Settings</string>
+    <string name="action_hide">Hide Panel</string>
+    <string name="action_show">Show Panel</string>
+    <string name="action_quality_hq">Change to HQ</string>
+    <string name="action_quality_lq">Change to LQ</string>
+    <string name="action_anchor_enable">Enable Anchor Point</string>
+    <string name="action_anchor_disable">Disable Anchor Point</string>
 </resources>

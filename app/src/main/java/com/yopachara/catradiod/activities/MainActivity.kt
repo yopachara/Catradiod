@@ -1,23 +1,35 @@
 package com.yopachara.catradiod.activities
 
-import android.net.Network
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.view.View
+import android.view.*
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import com.twitter.sdk.android.core.Callback
+import com.twitter.sdk.android.core.Result
+import com.twitter.sdk.android.core.TwitterException
+import com.twitter.sdk.android.core.models.Tweet
+import com.twitter.sdk.android.tweetui.SearchTimeline
+import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter
 import com.yopachara.catradiod.R
 import kotlinx.android.synthetic.main.activity_main.*
 import com.yopachara.catradiod.libraries.radio.RadioListener
 import com.yopachara.catradiod.libraries.radio.RadioManager
+import kotlinx.android.synthetic.main.sliding_layout.*
 
 class MainActivity : AppCompatActivity(), RadioListener {
-    private val RADIO_URL: String = "http://catradio.mylive.in.th:8000/live"
     internal var mRadioManager: RadioManager = RadioManager.with(this)
-
+    private var qualitySound = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val myToolbar = findViewById(R.id.main_toolbar) as Toolbar
+        setSupportActionBar(myToolbar)
+        progressBar.setIndeterminate(false)
+        progressBar.setProgress(0)
+
+        qualitySound = resources.getString(R.string.radio_url_hq)
         mRadioManager.registerListener(this)
         mRadioManager.setLogging(true)
         notification_play.setOnClickListener { view -> initializeUI() }
@@ -35,14 +47,30 @@ class MainActivity : AppCompatActivity(), RadioListener {
             }
         })
 
+        val actionCallback = object : Callback<Tweet>() {
+            override fun success(result: Result<Tweet>?) {
+                progressBar.setVisibility(View.GONE)
+                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun failure(exception: TwitterException?) {
+                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+        val searchTimeline = SearchTimeline.Builder().query("#หนังหน้าแมว").build()
+
+        val adapter = TweetTimelineListAdapter.Builder(this).setTimeline(searchTimeline).setOnActionCallback(actionCallback).build()
+        timeline_list.setAdapter(adapter)
 
     }
 
     fun initializeUI() {
-        if (!mRadioManager.isPlaying)
-            mRadioManager.startRadio(RADIO_URL)
-        else
+        if (!mRadioManager.isPlaying) {
+            Log.d("Type of quality", qualitySound)
+            mRadioManager.startRadio(qualitySound)
+        } else {
             mRadioManager.stopRadio()
+        }
     }
 
     override fun onResume() {
@@ -88,5 +116,49 @@ class MainActivity : AppCompatActivity(), RadioListener {
 
     override fun onError() {
 
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_toggle -> {
+                if (slidingLayout != null) {
+                    if (slidingLayout.getPanelState() != SlidingUpPanelLayout.PanelState.HIDDEN) {
+                        slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN)
+                        item.setTitle(R.string.action_show)
+                    } else {
+                        slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED)
+                        item.setTitle(R.string.action_hide)
+                    }
+                }
+                return true
+            }
+            R.id.action_quality -> {
+                if (qualitySound != resources.getString(R.string.radio_url_hq)) {
+                    qualitySound = resources.getString(R.string.radio_url_hq)
+                    item.setTitle(R.string.action_quality_lq)
+                    Log.d("Type of quality", qualitySound)
+                } else {
+                    qualitySound = resources.getString(R.string.radio_url_lq)
+                    item.setTitle(R.string.action_quality_hq)
+                    Log.d("Type of quality", qualitySound)
+                }
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 }
