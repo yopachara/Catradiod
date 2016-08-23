@@ -4,7 +4,6 @@ import com.twitter.sdk.android.core.models.User
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-
 /**
  * Created by dw03 on 8/23/2016 AD.
  */
