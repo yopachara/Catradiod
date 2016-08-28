@@ -5,17 +5,16 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.tweetui.Timeline
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter
-import com.yopachara.catradiod.activities.TweetsTimelineDetailActivity
+import com.yopachara.catradiod.activities.EmbeddedTweetsActivity
 
 /**
- * Created by yopachara on 8/20/2016 AD.
+ * Created by yopachara on 8/28/2016 AD.
  */
 
-class CustomTweetTimelineListAdapter(context: Context, timeline: Timeline<Tweet>) : TweetTimelineListAdapter(context, timeline) {
+class CustomTweetTimelineDetailListAdapter(context: Context, timeline: Timeline<Tweet>) : TweetTimelineListAdapter(context, timeline) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = super.getView(position, convertView, parent)
@@ -30,7 +29,7 @@ class CustomTweetTimelineListAdapter(context: Context, timeline: Timeline<Tweet>
         view.setOnClickListener {
             val tweetId = "click tweetId:" + getItemId(position)
             Toast.makeText(context, tweetId, Toast.LENGTH_SHORT).show()
-            val i = Intent(context, TweetsTimelineDetailActivity::class.java)
+            val i = Intent(context, EmbeddedTweetsActivity::class.java)
             i.putExtra("tweetId",getItemId(position))
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.applicationContext.startActivity(i)
