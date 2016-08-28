@@ -18,8 +18,9 @@ import com.twitter.sdk.android.tweetui.TimelineResult
 import com.twitter.sdk.android.tweetui.TweetUtils
 import com.twitter.sdk.android.tweetui.TweetView
 import com.yopachara.catradiod.R
+import com.yopachara.catradiod.adapters.CustomTweetTimelineDetailListAdapter
 import com.yopachara.catradiod.adapters.CustomTweetTimelineListAdapter
-import kotlinx.android.synthetic.main.activity_embedded_tweets.*
+import kotlinx.android.synthetic.main.activity_tweets_details.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -29,11 +30,11 @@ class TweetsTimelineDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tweetIds = intent.getLongExtra("tweetId", 510908133917487104)
-        setContentView(R.layout.activity_embedded_tweets)
+        setContentView(R.layout.activity_tweets_details)
         Toast.makeText(this, tweetIds.toString(), Toast.LENGTH_SHORT).show()
         Log.i("tweetIds", tweetIds.toString())
         val searchTimeline: SearchTimeline = SearchTimeline.Builder().query(tweetIds.toString()).build()
-        val adapter: CustomTweetTimelineListAdapter = CustomTweetTimelineListAdapter(this, searchTimeline)
+        val adapter: CustomTweetTimelineDetailListAdapter = CustomTweetTimelineDetailListAdapter(this, searchTimeline)
         val lv = findViewById(R.id.timeline_list_detail) as ListView
 
 //        swipeRefreshLayoutDetail.setOnRefreshListener(this)
@@ -52,26 +53,7 @@ class TweetsTimelineDetailActivity : AppCompatActivity() {
 
         }
 
-//        TweetUtils.loadTweet(tweetIds, object: Callback<Tweet>(){
-//            override fun success(result: Result<Tweet>) {
-//                my_tweet_layout.addView(TweetView(this@EmbeddedTweetsActivity, result.data, R.style.tw__TweetLightWithActionsStyle))
-//                val twitterApiClient = TwitterCore.getInstance().getApiClient()
-//                val statusesService = twitterApiClient.statusesService
-//                val call = statusesService.show(524971209851543553L, null, null, null)
-//                call.enqueue(object: Callback<Tweet>(){
-//                    override fun failure(exception: TwitterException?) {
-//                    }
 //
-//                    override fun success(result: Result<Tweet>?) {
-//                    }
-//                })
-//            }
-//
-//            override fun failure(exception: TwitterException?) {
-//                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-//            }
-//        })
-
 
     }
 
