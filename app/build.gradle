@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.yopachara.catradiod"
         minSdkVersion 19
@@ -41,18 +41,26 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
-    testCompile 'junit:junit:4.12'
     compile files('libs/aacdecoder-android-0.8.jar')
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.anko:anko-sdk23:0.9" // So here it's 15 too
+
+    compile "org.jetbrains.anko:anko-appcompat-v7:0.9"
+    compile "org.jetbrains.anko:anko-design:0.9"
+    compile "org.jetbrains.anko:anko-recyclerview-v7:0.9"
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile "com.squareup.retrofit2:converter-moshi:2.1.0"
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
     // RxAndroid
-    compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.2.1'
+    compile 'io.reactivex:rxkotlin:0.60.0'
+
     //RxBindings
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     // Loging
