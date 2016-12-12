@@ -12,7 +12,7 @@
     sothree:umanoPanelHeight="48dp"
     sothree:umanoParallaxOffset="100dp"
     sothree:umanoShadowHeight="4dp"
-    tools:context="com.yopachara.catradiod.activities.MainActivity">
+    tools:context="com.yopachara.catradiod.activity.MainActivity">
 
 
     <!-- MAIN CONTENT -->

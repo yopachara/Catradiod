@@ -8,7 +8,7 @@ import android.widget.Toast
 import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.tweetui.Timeline
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter
-import com.yopachara.catradiod.activities.EmbeddedTweetsActivity
+import com.yopachara.catradiod.activity.EmbeddedTweetsActivity
 
 /**
  * Created by yopachara on 8/28/2016 AD.

@@ -29,8 +29,8 @@ public class PlayerControllerBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        boolean isRadioServiceBinded = RadioManager.getService() == null ? false : true;
-        boolean isMediaServiceBinded = MediaManager.getService() == null ? false : true;
+        boolean isRadioServiceBinded = RadioManager.getService() != null;
+        boolean isMediaServiceBinded = MediaManager.getService() != null;
 
         String action = intent.getAction();
 

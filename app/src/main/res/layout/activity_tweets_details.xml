@@ -5,7 +5,7 @@
     xmlns:twittersdk="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.yopachara.catradiod.activities.TweetsTimelineDetailActivity">
+    tools:context="com.yopachara.catradiod.activity.TweetsTimelineDetailActivity">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayoutDetail"
         android:layout_width="match_parent"
