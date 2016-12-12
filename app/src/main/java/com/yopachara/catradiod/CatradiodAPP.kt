@@ -4,6 +4,7 @@ import android.app.Application
 import com.twitter.sdk.android.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import io.fabric.sdk.android.Fabric
+import timber.log.Timber
 
 /**
  * Created by dw03 on 8/19/2016 AD.
@@ -16,6 +17,9 @@ class CatradiodAPP: Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
         val authConfig = TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET)
         Fabric.with(this, Twitter(authConfig))
     }

@@ -22,19 +22,23 @@ import com.yopachara.catradiod.library.radio.RadioListener
 import com.yopachara.catradiod.library.radio.RadioManager
 import com.yopachara.catradiod.service.CatAPI
 import kotlinx.android.synthetic.main.sliding_layout.*
+import kotlinx.android.synthetic.main.sliding_layout.view.*
 import okhttp3.ResponseBody
+import org.jetbrains.anko.toast
 import rx.Scheduler
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import timber.log.Timber
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRefreshListener {
     internal var mRadioManager: RadioManager = RadioManager.with(this)
     private var qualitySound = ""
     val actionCallback = object : Callback<Tweet>() {
         override fun success(result: Result<Tweet>?) {
-            progressBar.setVisibility(View.GONE)
+            progressBar.visibility = View.GONE
         }
 
         override fun failure(exception: TwitterException?) {
@@ -42,7 +46,7 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
     }
     val searchTimeline: SearchTimeline = SearchTimeline.Builder().query("#จดหมายเด็กแมว").build()
     val adapter: CustomTweetTimelineListAdapter = CustomTweetTimelineListAdapter(this, searchTimeline)
-
+    val api: CatAPI = CatAPI()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,8 +54,8 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         Timber.d("MainActivity Created")
         val myToolbar = findViewById(R.id.main_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
-        progressBar.setIndeterminate(false)
-        progressBar.setProgress(0)
+        progressBar.isIndeterminate = false
+        progressBar.progress = 0
 
         qualitySound = resources.getString(R.string.radio_url_hq)
         mRadioManager.registerListener(this)
@@ -60,7 +64,7 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         notification_collapse.setOnClickListener {
             mRadioManager.stopRadio()
         }
-        slidingLayout.setAnchorPoint(0.5f)
+        slidingLayout.anchorPoint = 0.5f
         slidingLayout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View, slideOffset: Float) {
                 Log.i("onPanelSlide", "onPanelSlide, offset " + slideOffset)
@@ -71,16 +75,31 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
             }
         })
         swipeRefreshLayout.setOnRefreshListener(this)
-        timeline_list.setAdapter(adapter)
+        timeline_list.adapter = adapter
 
 
+        api.getShow()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .repeatWhen { completed -> completed.delay(3,TimeUnit.MINUTES) }
+                .subscribe(
+                        { cat ->
+                            song_detail.text = cat.now?.song+" "+ cat.now?.name
+                            Timber.d(cat.now?.song)
+                            Timber.d(cat.next?.song)
+                        },
+                        { error ->
+                            Timber.e(error)
+                        }
+                )
     }
+
 
     override fun onRefresh() {
         adapter.refresh(object : Callback<TimelineResult<Tweet>>() {
             override fun success(result: Result<TimelineResult<Tweet>>?) {
                 Log.d("onRefresh", "success")
-                swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.isRefreshing = false
             }
 
             override fun failure(exception: TwitterException?) {
@@ -124,6 +143,7 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         runOnUiThread {
             //TODO Do UI works here.
             textviewControl.text = "RADIO STATE : PLAYING..."
+
         }
     }
 
@@ -161,11 +181,11 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         when (item.itemId) {
             R.id.action_toggle -> {
                 if (slidingLayout != null) {
-                    if (slidingLayout.getPanelState() != SlidingUpPanelLayout.PanelState.HIDDEN) {
-                        slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN)
+                    if (slidingLayout.panelState != SlidingUpPanelLayout.PanelState.HIDDEN) {
+                        slidingLayout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
                         item.setTitle(R.string.action_show)
                     } else {
-                        slidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED)
+                        slidingLayout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
                         item.setTitle(R.string.action_hide)
                     }
                 }
