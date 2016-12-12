@@ -12,5 +12,5 @@ import rx.Observable
 
 interface CatService {
     @GET("now.php")
-    fun getSong(): Call<Cat>
+    fun getSong(): Observable<Cat>
 }
