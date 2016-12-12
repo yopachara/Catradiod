@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.libraries.radio;
+package com.yopachara.catradiod.library.radio;
 
 /**
  * Created by mertsimsek on 01/07/15.

@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.activities
+package com.yopachara.catradiod.activity
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -18,8 +18,8 @@ import com.twitter.sdk.android.tweetui.TimelineResult
 import com.twitter.sdk.android.tweetui.TweetUtils
 import com.twitter.sdk.android.tweetui.TweetView
 import com.yopachara.catradiod.R
-import com.yopachara.catradiod.adapters.CustomTweetTimelineDetailListAdapter
-import com.yopachara.catradiod.adapters.CustomTweetTimelineListAdapter
+import com.yopachara.catradiod.adapter.CustomTweetTimelineDetailListAdapter
+import com.yopachara.catradiod.adapter.CustomTweetTimelineListAdapter
 import kotlinx.android.synthetic.main.activity_tweets_details.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*

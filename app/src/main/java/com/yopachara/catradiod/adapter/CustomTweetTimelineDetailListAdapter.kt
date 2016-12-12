@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.adapters
+package com.yopachara.catradiod.adapter
 
 import android.content.Context
 import android.content.Intent

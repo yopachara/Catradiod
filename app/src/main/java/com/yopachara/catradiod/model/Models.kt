@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.models
+package com.yopachara.catradiod.model
 
 /**
  * Created by dw03 on 8/17/2016 AD.

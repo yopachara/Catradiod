@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.activities
+package com.yopachara.catradiod.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
@@ -15,11 +16,18 @@ import com.twitter.sdk.android.tweetui.SearchTimeline
 import com.twitter.sdk.android.tweetui.TimelineResult
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter
 import com.yopachara.catradiod.R
-import com.yopachara.catradiod.adapters.CustomTweetTimelineListAdapter
+import com.yopachara.catradiod.adapter.CustomTweetTimelineListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import com.yopachara.catradiod.libraries.radio.RadioListener
-import com.yopachara.catradiod.libraries.radio.RadioManager
+import com.yopachara.catradiod.library.radio.RadioListener
+import com.yopachara.catradiod.library.radio.RadioManager
+import com.yopachara.catradiod.service.CatAPI
 import kotlinx.android.synthetic.main.sliding_layout.*
+import okhttp3.ResponseBody
+import rx.Scheduler
+import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRefreshListener {
     internal var mRadioManager: RadioManager = RadioManager.with(this)
@@ -33,11 +41,13 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         }
     }
     val searchTimeline: SearchTimeline = SearchTimeline.Builder().query("#จดหมายเด็กแมว").build()
-    val adapter: CustomTweetTimelineListAdapter = CustomTweetTimelineListAdapter(this,searchTimeline)
+    val adapter: CustomTweetTimelineListAdapter = CustomTweetTimelineListAdapter(this, searchTimeline)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Timber.tag("MainActivity")
+        Timber.d("MainActivity Created")
         val myToolbar = findViewById(R.id.main_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
         progressBar.setIndeterminate(false)
@@ -62,6 +72,7 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         })
         swipeRefreshLayout.setOnRefreshListener(this)
         timeline_list.setAdapter(adapter)
+
 
     }
 

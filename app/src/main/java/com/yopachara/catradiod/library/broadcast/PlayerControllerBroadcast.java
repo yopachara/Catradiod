@@ -1,13 +1,13 @@
-package com.yopachara.catradiod.libraries.broadcast;
+package com.yopachara.catradiod.library.broadcast;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.yopachara.catradiod.libraries.media.MediaManager;
-import com.yopachara.catradiod.libraries.media.MediaPlayerService;
-import com.yopachara.catradiod.libraries.radio.RadioManager;
-import com.yopachara.catradiod.libraries.radio.RadioPlayerService;
+import com.yopachara.catradiod.library.media.MediaManager;
+import com.yopachara.catradiod.library.media.MediaPlayerService;
+import com.yopachara.catradiod.library.radio.RadioManager;
+import com.yopachara.catradiod.library.radio.RadioPlayerService;
 
 
 /**

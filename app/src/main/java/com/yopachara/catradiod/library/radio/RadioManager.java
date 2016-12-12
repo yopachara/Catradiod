@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.libraries.radio;
+package com.yopachara.catradiod.library.radio;
 
 import android.content.ComponentName;
 import android.content.Context;

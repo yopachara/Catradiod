@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.libraries.media;
+package com.yopachara.catradiod.library.media;
 
 import android.content.ComponentName;
 import android.content.Context;

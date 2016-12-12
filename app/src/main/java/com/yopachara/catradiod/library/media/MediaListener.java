@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.libraries.media;
+package com.yopachara.catradiod.library.media;
 
 /**
  * Created by mertsimsek on 04/11/15.

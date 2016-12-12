@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.services
+package com.yopachara.catradiod.service
 
 import com.twitter.sdk.android.core.models.User
 import retrofit2.Call
