@@ -20,11 +20,9 @@ import com.yopachara.catradiod.adapter.CustomTweetTimelineListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import com.yopachara.catradiod.library.radio.RadioListener
 import com.yopachara.catradiod.library.radio.RadioManager
-import com.yopachara.catradiod.service.CatAPI
 import kotlinx.android.synthetic.main.sliding_layout.*
 import kotlinx.android.synthetic.main.sliding_layout.view.*
 import okhttp3.ResponseBody
-import org.jetbrains.anko.toast
 import rx.Scheduler
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -46,7 +44,6 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
     }
     val searchTimeline: SearchTimeline = SearchTimeline.Builder().query("#จดหมายเด็กแมว").build()
     val adapter: CustomTweetTimelineListAdapter = CustomTweetTimelineListAdapter(this, searchTimeline)
-    val api: CatAPI = CatAPI()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -78,20 +75,20 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         timeline_list.adapter = adapter
 
 
-        api.getShow()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .repeatWhen { completed -> completed.delay(3,TimeUnit.MINUTES) }
-                .subscribe(
-                        { cat ->
-                            song_detail.text = cat.now?.song+" "+ cat.now?.name
-                            Timber.d(cat.now?.song)
-                            Timber.d(cat.next?.song)
-                        },
-                        { error ->
-                            Timber.e(error)
-                        }
-                )
+//        api.getShow()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .repeatWhen { completed -> completed.delay(3,TimeUnit.MINUTES) }
+//                .subscribe(
+//                        { cat ->
+//                            song_detail.text = cat.now?.song+" "+ cat.now?.name
+//                            Timber.d(cat.now?.song)
+//                            Timber.d(cat.next?.song)
+//                        },
+//                        { error ->
+//                            Timber.e(error)
+//                        }
+//                )
     }
 
 
