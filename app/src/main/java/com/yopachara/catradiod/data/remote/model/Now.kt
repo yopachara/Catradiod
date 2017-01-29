@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.model
+package com.yopachara.catradiod.data.remote.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

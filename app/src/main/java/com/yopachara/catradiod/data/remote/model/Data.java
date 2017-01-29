@@ -7,81 +7,81 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-    @SerializedName("MONDAY")
+    @SerializedName("Monday")
     @Expose
-    private List<MONDAY> mONDAY = null;
-    @SerializedName("TUESDAY")
+    private List<Monday> mONDAY = null;
+    @SerializedName("Tuesday")
     @Expose
-    private List<TUESDAY> tUESDAY = null;
-    @SerializedName("WEDNESDAY")
+    private List<Tuesday> tUESDAY = null;
+    @SerializedName("Wednesday")
     @Expose
-    private List<WEDNESDAY> wEDNESDAY = null;
-    @SerializedName("THURSDAY")
+    private List<Wednesday> wEDNESDAY = null;
+    @SerializedName("Thursday")
     @Expose
-    private List<THURSDAY> tHURSDAY = null;
-    @SerializedName("FRIDAY")
+    private List<Thursday> tHURSDAY = null;
+    @SerializedName("Friday")
     @Expose
-    private List<FRIDAY> fRIDAY = null;
-    @SerializedName("SATURDAY")
+    private List<Friday> fRIDAY = null;
+    @SerializedName("Saturday")
     @Expose
-    private List<SATURDAY> sATURDAY = null;
-    @SerializedName("SUNDAY")
+    private List<Saturday> sATURDAY = null;
+    @SerializedName("Sunday")
     @Expose
-    private List<SUNDAY> sUNDAY = null;
+    private List<Sunday> sUNDAY = null;
 
-    public List<MONDAY> getMONDAY() {
+    public List<Monday> getMONDAY() {
         return mONDAY;
     }
 
-    public void setMONDAY(List<MONDAY> mONDAY) {
+    public void setMONDAY(List<Monday> mONDAY) {
         this.mONDAY = mONDAY;
     }
 
-    public List<TUESDAY> getTUESDAY() {
+    public List<Tuesday> getTUESDAY() {
         return tUESDAY;
     }
 
-    public void setTUESDAY(List<TUESDAY> tUESDAY) {
+    public void setTUESDAY(List<Tuesday> tUESDAY) {
         this.tUESDAY = tUESDAY;
     }
 
-    public List<WEDNESDAY> getWEDNESDAY() {
+    public List<Wednesday> getWEDNESDAY() {
         return wEDNESDAY;
     }
 
-    public void setWEDNESDAY(List<WEDNESDAY> wEDNESDAY) {
+    public void setWEDNESDAY(List<Wednesday> wEDNESDAY) {
         this.wEDNESDAY = wEDNESDAY;
     }
 
-    public List<THURSDAY> getTHURSDAY() {
+    public List<Thursday> getTHURSDAY() {
         return tHURSDAY;
     }
 
-    public void setTHURSDAY(List<THURSDAY> tHURSDAY) {
+    public void setTHURSDAY(List<Thursday> tHURSDAY) {
         this.tHURSDAY = tHURSDAY;
     }
 
-    public List<FRIDAY> getFRIDAY() {
+    public List<Friday> getFRIDAY() {
         return fRIDAY;
     }
 
-    public void setFRIDAY(List<FRIDAY> fRIDAY) {
+    public void setFRIDAY(List<Friday> fRIDAY) {
         this.fRIDAY = fRIDAY;
     }
 
-    public List<SATURDAY> getSATURDAY() {
+    public List<Saturday> getSATURDAY() {
         return sATURDAY;
     }
 
-    public void setSATURDAY(List<SATURDAY> sATURDAY) {
+    public void setSATURDAY(List<Saturday> sATURDAY) {
         this.sATURDAY = sATURDAY;
     }
 
-    public List<SUNDAY> getSUNDAY() {
+    public List<Sunday> getSUNDAY() {
         return sUNDAY;
     }
 
-    public void setSUNDAY(List<SUNDAY> sUNDAY) {
+    public void setSUNDAY(List<Sunday> sUNDAY) {
         this.sUNDAY = sUNDAY;
     }
 

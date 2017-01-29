@@ -1,4 +1,4 @@
-package io.github.plastix.kotlinboilerplate.data.remote.model
+package com.yopachara.catradiod.data.remote.model
 
 import android.os.Parcel
 import com.google.gson.annotations.SerializedName

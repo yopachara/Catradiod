@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WEDNESDAY {
+public class Wednesday {
 
     @SerializedName("shift_start")
     @Expose
@@ -27,7 +27,7 @@ public class WEDNESDAY {
     private String shiftDesc;
     @SerializedName("DJ")
     @Expose
-    private List<DJ__> dJ = null;
+    private List<DJ> dJ = null;
 
     public String getShiftStart() {
         return shiftStart;
@@ -77,11 +77,11 @@ public class WEDNESDAY {
         this.shiftDesc = shiftDesc;
     }
 
-    public List<DJ__> getDJ() {
+    public List<DJ> getDJ() {
         return dJ;
     }
 
-    public void setDJ(List<DJ__> dJ) {
+    public void setDJ(List<DJ> dJ) {
         this.dJ = dJ;
     }
 

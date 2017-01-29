@@ -15,7 +15,7 @@ public class DJ {
     @SerializedName("full_name")
     @Expose
     private String fullName;
-    @SerializedName("dj_img")
+    @SerializedName("DJimg")
     @Expose
     private String djImg;
     @SerializedName("status")
