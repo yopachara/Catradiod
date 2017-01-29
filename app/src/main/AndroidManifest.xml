@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -21,42 +21,42 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".library.media.MediaPlayerService">
-            <intent-filter>
-                <action
-                    android:name="com.yopachara.catradiod.libraries.notification.media.INTENT_PLAYPAUSE"/>
-                <action
-                    android:name="com.yopachara.catradiod.libraries.notification.media.INTENT_OPENPLAYER"/>
-                <action
-                    android:name="com.yopachara.catradiod.libraries.notification.media.INTENT_CANCEL"/>
-            </intent-filter>
-        </service>
         <service android:name=".library.radio.RadioPlayerService">
             <intent-filter>
-                <action
-                    android:name="com.yopachara.catradiod.libraries.notification.radio.INTENT_PLAYPAUSE"/>
-                <action
-                    android:name="com.yopachara.catradiod.libraries.notification.radio.INTENT_OPENPLAYER"/>
-                <action
-                    android:name="com.yopachara.catradiod.libraries.notification.radio.INTENT_CANCEL"/>
+                <action android:name="com.yopachara.catradiod.library.notification.radio.INTENT_PLAYPAUSE"/>
+                <action android:name="com.yopachara.catradiod.library.notification.radio.INTENT_OPENPLAYER"/>
+                <action android:name="com.yopachara.catradiod.library.notification.radio.INTENT_CANCEL"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".library.media.MediaPlayerService">
+            <intent-filter>
+                <action android:name="com.yopachara.catradiod.library.notification.media.INTENT_PLAYPAUSE"/>
+                <action android:name="com.yopachara.catradiod.library.notification.media.INTENT_OPENPLAYER"/>
+                <action android:name="com.yopachara.catradiod.library.notification.media.INTENT_CANCEL"/>
             </intent-filter>
         </service>
 
         <receiver android:name=".library.broadcast.PlayerControllerBroadcast">
             <intent-filter>
-                <action android:name="com.yopachara.catradiod.libraries.ACTION_STOP_RADIOPLAYER"/>
-                <action android:name="com.yopachara.catradiod.libraries.ACTION_STOP_MEDIAPLAYER"/>
+                <action android:name="com.yopachara.catradiod.library.ACTION_STOP_RADIOPLAYER"/>
+                <action android:name="com.yopachara.catradiod.library.ACTION_STOP_MEDIAPLAYER"/>
+                <action android:name="com.yopachara.catradiod.library.notification.radio.INTENT_OPENPLAYER"/>
+                <action android:name="com.yopachara.catradiod.library.notification.radio.INTENT_PLAYPAUSE"/>
+                <action android:name="com.yopachara.catradiod.library.notification.radio.INTENT_CANCEL"/>
+                <action android:name="com.yopachara.catradiod.library.notification.media.INTENT_PLAYPAUSE"/>
+                <action android:name="com.yopachara.catradiod.library.notification.media.INTENT_CANCEL"/>
+                <action android:name="com.yopachara.catradiod.library.notification.media.INTENT_OPENPLAYER"/>
             </intent-filter>
         </receiver>
-
         <!-- Fabric -->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="62459599b8fa6ebc19b4a9028430ab1fe090a380"/>
 
-        <activity android:name=".activity.TweetsTimelineDetailActivity">
+        <activity android:name=".ui.main.TweetsTimelineDetailActivity">
         </activity>
-        <activity android:name=".activity.EmbeddedTweetsActivity">
+        <activity android:name=".ui.main.EmbeddedTweetsActivity">
         </activity>
     </application>
 
