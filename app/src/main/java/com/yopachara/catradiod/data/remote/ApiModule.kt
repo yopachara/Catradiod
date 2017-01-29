@@ -1,4 +1,4 @@
-package io.github.plastix.kotlinboilerplate.data.remote
+package com.yopachara.catradiod.data.remote
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
@@ -11,15 +11,15 @@ import javax.inject.Singleton
 class ApiModule {
 
     @Provides @Singleton
-    fun provideApiService(retrofit: Retrofit): GithubApiService {
-        return retrofit.create(GithubApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): CatApiService {
+        return retrofit.create(CatApiService::class.java)
     }
 
     @Provides @Singleton
     fun provideRetrofit(rxJavaCallAdapterFactory: RxJava2CallAdapterFactory,
                         gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(ApiConstants.GITHUB_API_BASE_ENDPOINT)
+                .baseUrl(ApiConstants.CAT_BASE_ENDPOINT)
                 .addCallAdapterFactory(rxJavaCallAdapterFactory)
                 .addConverterFactory(gsonConverterFactory)
                 .build()

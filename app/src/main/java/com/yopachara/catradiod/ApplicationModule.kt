@@ -1,16 +1,18 @@
-package io.github.plastix.kotlinboilerplate
+package com.yopachara.catradiod
 
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
+import com.yopachara.catradiod.CatradiodAPP
 import dagger.Module
 import dagger.Provides
+import com.yopachara.catradiod.ApplicationQualifier
 import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val app: KotlinBoilerplateApp) {
+class ApplicationModule(private val app: CatradiodAPP) {
 
     @Provides @Singleton
     fun provideApplication(): Application = app

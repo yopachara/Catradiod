@@ -1,6 +1,7 @@
-package io.github.plastix.kotlinboilerplate.ui.base
+package com.yopachara.catradiod.ui.base
 
 import android.support.annotation.CallSuper
+import com.yopachara.catradiod.ui.base.AbstractViewModel
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

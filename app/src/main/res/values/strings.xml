@@ -2,7 +2,7 @@
     <string name="app_name">Catradiod</string>
 
     <!-- URL Catradio -->
-    <string name="radio_url_hq">http://catradio.mylive.in.th:8000/live</string>
+    <string name="radio_url_hq">http://203.145.115.35/CatRadio/CatRadio-High/chunklist_w1751788138.m3u8</string>
     <string name="radio_url_lq">http://catradio.mylive.in.th:8000/livelq</string>
 
     <!-- Menu -->

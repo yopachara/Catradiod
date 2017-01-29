@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.activity
+package com.yopachara.catradiod.ui.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -23,10 +23,6 @@ import com.yopachara.catradiod.library.radio.RadioManager
 import kotlinx.android.synthetic.main.sliding_layout.*
 import kotlinx.android.synthetic.main.sliding_layout.view.*
 import okhttp3.ResponseBody
-import rx.Scheduler
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit

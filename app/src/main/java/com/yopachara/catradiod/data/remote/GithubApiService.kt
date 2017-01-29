@@ -1,6 +1,6 @@
-package io.github.plastix.kotlinboilerplate.data.remote
+package com.yopachara.catradiod.data.remote
 
-import io.github.plastix.kotlinboilerplate.data.remote.model.SearchResponse
+import com.yopachara.catradiod.data.remote.model.SearchResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

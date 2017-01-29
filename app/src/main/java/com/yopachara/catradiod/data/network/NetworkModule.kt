@@ -1,10 +1,10 @@
-package io.github.plastix.kotlinboilerplate.data.network
+package com.yopachara.catradiod.data.network
 
 import android.content.Context
 import android.net.ConnectivityManager
 import dagger.Module
 import dagger.Provides
-import io.github.plastix.kotlinboilerplate.ApplicationQualifier
+import com.yopachara.catradiod.ApplicationQualifier
 import javax.inject.Singleton
 
 @Module

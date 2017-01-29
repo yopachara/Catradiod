@@ -1,12 +1,8 @@
-package io.github.plastix.kotlinboilerplate
+package com.yopachara.catradiod
 
 import dagger.Component
-import io.github.plastix.kotlinboilerplate.data.network.NetworkModule
-import io.github.plastix.kotlinboilerplate.data.remote.ApiModule
-import io.github.plastix.kotlinboilerplate.ui.detail.DetailComponent
-import io.github.plastix.kotlinboilerplate.ui.detail.DetailModule
-import io.github.plastix.kotlinboilerplate.ui.list.ListComponent
-import io.github.plastix.kotlinboilerplate.ui.list.ListModule
+import com.yopachara.catradiod.data.network.NetworkModule
+import com.yopachara.catradiod.data.remote.ApiModule
 import javax.inject.Singleton
 
 @Singleton
@@ -18,10 +14,10 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     // Injectors
-    fun injectTo(app: KotlinBoilerplateApp)
+    fun injectTo(app: CatradiodAPP)
 
     // Submodule methods
     // Every screen is its own submodule of the graph and must be added here.
-    fun plus(module: ListModule): ListComponent
-    fun plus(module: DetailModule): DetailComponent
+//    fun plus(module: ListModule): ListComponent
+//    fun plus(module: MainModule): MainComponent
 }

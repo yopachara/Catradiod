@@ -1,4 +1,4 @@
-package io.github.plastix.kotlinboilerplate.ui.base
+package com.yopachara.catradiod.ui.base
 
 interface ViewModel {
 

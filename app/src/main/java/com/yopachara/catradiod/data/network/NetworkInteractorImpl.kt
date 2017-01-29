@@ -1,6 +1,7 @@
-package io.github.plastix.kotlinboilerplate.data.network
+package com.yopachara.catradiod.data.network
 
 import android.net.ConnectivityManager
+import com.yopachara.catradiod.data.network.NetworkInteractor
 import io.reactivex.Completable
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -1,4 +1,4 @@
-package io.github.plastix.kotlinboilerplate
+package com.yopachara.catradiod
 
 import javax.inject.Qualifier
 

@@ -29,8 +29,8 @@ public class PlayerControllerBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        boolean isRadioServiceBinded = RadioManager.getService() != null;
-        boolean isMediaServiceBinded = MediaManager.getService() != null;
+        boolean isRadioServiceBinded = RadioManager.getService() == null ? false : true;
+        boolean isMediaServiceBinded = MediaManager.getService() == null ? false : true;
 
         String action = intent.getAction();
 
@@ -44,5 +44,28 @@ public class PlayerControllerBroadcast extends BroadcastReceiver {
                 && MediaManager.getService().isPlaying()){
             MediaManager.getService().stop();
         }
+
+        else if(action.equals(RadioPlayerService.NOTIFICATION_INTENT_PLAY_PAUSE)
+                && isRadioServiceBinded){
+            if(RadioManager.getService().isPlaying())
+                RadioManager.getService().stop();
+            else
+                RadioManager.getService().resume();
+        }else if(action.equals(RadioPlayerService.NOTIFICATION_INTENT_CANCEL)
+                && isRadioServiceBinded){
+            RadioManager.getService().stopFromNotification();
+        }
+
+        else if(action.equals(MediaPlayerService.NOTIFICATION_INTENT_PLAY_PAUSE)
+                && isMediaServiceBinded){
+            if(MediaManager.getService().isPlaying())
+                MediaManager.getService().pause();
+            else
+                MediaManager.getService().resume();
+        }else if(action.equals(MediaPlayerService.NOTIFICATION_INTENT_CANCEL)
+                && isMediaServiceBinded){
+            MediaManager.getService().stopFromNotification();
+        }
+
     }
 }

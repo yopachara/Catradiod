@@ -1,8 +1,9 @@
-package io.github.plastix.kotlinboilerplate.ui.base
+package com.yopachara.catradiod.ui.base
 
 import android.content.Context
 import android.support.v4.content.Loader
-import io.github.plastix.kotlinboilerplate.ui.ActivityScope
+import com.yopachara.catradiod.ui.ActivityScope
+import com.yopachara.catradiod.ui.base.ViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 

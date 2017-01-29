@@ -25,6 +25,7 @@ public class StreamLinkDecoder extends AsyncTask<Void, Void, String> {
 
     /**
      * Constructor
+     *
      * @param streamUrl
      */
     public StreamLinkDecoder(String streamUrl) {
@@ -35,6 +36,7 @@ public class StreamLinkDecoder extends AsyncTask<Void, Void, String> {
      * DoInBackground method will create a connection
      * to stream link and check the file if there is
      * http stream link inside that file.
+     *
      * @param params
      * @return http stream link
      */

@@ -1,17 +1,17 @@
-package io.github.plastix.kotlinboilerplate.ui.base
+package com.yopachara.catradiod.ui.base
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
-import io.github.plastix.kotlinboilerplate.ApplicationComponent
-import io.github.plastix.kotlinboilerplate.KotlinBoilerplateApp
+import com.yopachara.catradiod.ApplicationComponent
+import com.yopachara.catradiod.CatradiodAPP
 
 abstract class BaseActivity: AppCompatActivity() {
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        injectDependencies(KotlinBoilerplateApp.graph)
+        injectDependencies(CatradiodAPP.graph)
     }
 
     abstract fun injectDependencies(graph: ApplicationComponent)

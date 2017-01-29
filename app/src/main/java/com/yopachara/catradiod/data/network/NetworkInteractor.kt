@@ -1,4 +1,4 @@
-package io.github.plastix.kotlinboilerplate.data.network
+package com.yopachara.catradiod.data.network
 
 import io.reactivex.Completable
 

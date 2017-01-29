@@ -1,8 +1,9 @@
-package io.github.plastix.kotlinboilerplate.ui.base
+package com.yopachara.catradiod.ui.base
 
 import android.databinding.BaseObservable
+import com.yopachara.catradiod.ui.base.ViewModel
 
-abstract class AbstractViewModel : BaseObservable(),  ViewModel {
+abstract class AbstractViewModel : BaseObservable(), ViewModel {
 
     override fun bind() {
     }

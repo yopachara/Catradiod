@@ -1,4 +1,4 @@
-package io.github.plastix.kotlinboilerplate.ui.base
+package com.yopachara.catradiod.ui.base
 
 import android.databinding.ViewDataBinding
 import android.os.Build
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.Loader
+import com.yopachara.catradiod.ui.base.BaseActivity
+import com.yopachara.catradiod.ui.base.ViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 

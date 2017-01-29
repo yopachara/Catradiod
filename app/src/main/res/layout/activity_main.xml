@@ -1,67 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    android:id="@+id/slidingLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="bottom"
-    sothree:umanoDragView="@+id/dragView"
-    sothree:umanoOverlay="true"
-    sothree:umanoPanelHeight="48dp"
-    sothree:umanoParallaxOffset="100dp"
-    sothree:umanoShadowHeight="4dp"
-    tools:context="com.yopachara.catradiod.activity.MainActivity">
+<layout>
 
+    <data>
 
-    <!-- MAIN CONTENT -->
-    <RelativeLayout
+        <variable
+            name="viewModel"
+            type="com.yopachara.catradiod.ui.main.MainViewModel"/>
+    </data>
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/slidingLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="384dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"/>
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoDragView="@+id/dragView"
+        sothree:umanoOverlay="true"
+        sothree:umanoPanelHeight="48dp"
+        sothree:umanoParallaxOffset="100dp"
+        sothree:umanoShadowHeight="4dp"
+        tools:context="com.yopachara.catradiod.ui.main.MainActivity">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+
+        <!-- MAIN CONTENT -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:orientation="vertical"
-            tools:layout_editor_absoluteX="0dp" tools:layout_editor_absoluteY="0dp">
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="384dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"/>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/main_toolbar"
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:elevation="4dp"
-                android:titleTextColor="@color/tw__composer_white"
-                sothree:theme="@style/ActionBar"/>
+                android:layout_height="match_parent" android:orientation="vertical"
+                tools:layout_editor_absoluteX="0dp" tools:layout_editor_absoluteY="0dp">
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefreshLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/main_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="4dp"
+                    android:titleTextColor="@color/tw__composer_white"
+                    sothree:theme="@style/ActionBar"/>
 
-                <ListView android:id="@+id/timeline_list"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:divider="#e1e8ed"
-                          android:dividerHeight="1dp"/>
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/swipeRefreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+                    <ListView android:id="@+id/timeline_list"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:divider="#e1e8ed"
+                              android:dividerHeight="1dp"/>
 
-        </LinearLayout>
-    </RelativeLayout>
+                </android.support.v4.widget.SwipeRefreshLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
 
 
-    <!-- SLIDING LAYOUT -->
-    <include
-        android:id="@+id/dragView"
-        layout="@layout/sliding_layout"/>
+        <!-- SLIDING LAYOUT -->
+        <include
+            android:id="@+id/dragView"
+            layout="@layout/sliding_layout"/>
 
 
-</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+</layout>
+

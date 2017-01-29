@@ -1,4 +1,4 @@
-package io.github.plastix.kotlinboilerplate.extensions
+package com.yopachara.catradiod.extensions
 
 import android.content.Context
 import android.support.annotation.ColorInt

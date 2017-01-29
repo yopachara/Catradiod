@@ -1,4 +1,4 @@
-package com.yopachara.catradiod.activity
+package com.yopachara.catradiod.ui.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

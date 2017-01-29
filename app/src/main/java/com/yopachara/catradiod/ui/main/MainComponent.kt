@@ -5,8 +5,8 @@ import dagger.Subcomponent
 
 @ActivityScope
 @Subcomponent(modules = arrayOf(
-        DetailModule::class
+        MainModule::class
 ))
 interface MainComponent {
-    fun injectTo(activity: DetailActivity)
+    fun injectTo(activity: MainActivity)
 }

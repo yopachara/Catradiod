@@ -1,4 +1,4 @@
-package io.github.plastix.kotlinboilerplate.ui
+package com.yopachara.catradiod.ui
 
 import javax.inject.Scope
 
