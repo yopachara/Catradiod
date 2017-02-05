@@ -110,4 +110,9 @@ class Next {
     @Expose
     var avatar: String? = null
 
+    override fun toString(): String {
+        return "Next(id=$id, song=$song, slug=$slug, album=$album, qikplayUrl=$qikplayUrl, uid=$uid, name=$name, avatar=$avatar)"
+    }
+
+
 }

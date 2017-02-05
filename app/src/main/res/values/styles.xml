@@ -54,4 +54,9 @@
     <style name="ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:displayOptions">homeAsUp</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
 </resources>

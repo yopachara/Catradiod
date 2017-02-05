@@ -14,4 +14,9 @@ class Cat {
     @Expose
     var next: Next? = null
 
+    override fun toString(): String {
+        return now.toString() +"\n"+next.toString()
+    }
+
+
 }

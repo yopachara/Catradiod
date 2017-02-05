@@ -13,6 +13,8 @@ public interface RadioListener {
 
   void onRadioStopped();
 
+  void onRadioClosed();
+
   void onMetaDataReceived(String s, String s2);
 
   void onError();

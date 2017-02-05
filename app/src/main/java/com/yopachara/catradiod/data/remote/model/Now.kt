@@ -82,6 +82,9 @@ class Now {
     @Expose
     var avatar: String? = null
 
+    override fun toString(): String {
+        return "Now(id=$id, song=$song, slug=$slug, album=$album, qikplayUrl=$qikplayUrl, uid=$uid, name=$name, avatar=$avatar)"
+    }
 
 
 }

@@ -1,5 +1,7 @@
 package com.yopachara.catradiod.ui.main
 
+import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -15,21 +17,28 @@ import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.tweetui.SearchTimeline
 import com.twitter.sdk.android.tweetui.TimelineResult
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter
+import com.yopachara.catradiod.ApplicationComponent
 import com.yopachara.catradiod.R
 import com.yopachara.catradiod.adapter.CustomTweetTimelineListAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.yopachara.catradiod.data.remote.StickyService
 import com.yopachara.catradiod.library.radio.RadioListener
 import com.yopachara.catradiod.library.radio.RadioManager
-import kotlinx.android.synthetic.main.sliding_layout.*
-import kotlinx.android.synthetic.main.sliding_layout.view.*
+import com.yopachara.catradiod.databinding.ActivityMainBinding
+
+import com.yopachara.catradiod.ui.base.ViewModelActivity
+import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.ResponseBody
+import org.reactivestreams.Subscription
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRefreshListener {
+class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), RadioListener, SwipeRefreshLayout.OnRefreshListener {
     internal var mRadioManager: RadioManager = RadioManager.with(this)
     private var qualitySound = ""
+    val disposables: CompositeDisposable = CompositeDisposable()
+
     val actionCallback = object : Callback<Tweet>() {
         override fun success(result: Result<Tweet>?) {
             progressBar.visibility = View.GONE
@@ -38,15 +47,24 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         override fun failure(exception: TwitterException?) {
         }
     }
-    val searchTimeline: SearchTimeline = SearchTimeline.Builder().query("#จดหมายเด็กแมว").build()
+
+    private val searchTimeline: SearchTimeline = SearchTimeline.Builder().query("#หนังหน้าแมว").build()
     val adapter: CustomTweetTimelineListAdapter = CustomTweetTimelineListAdapter(this, searchTimeline)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
         Timber.tag("MainActivity")
         Timber.d("MainActivity Created")
-        val myToolbar = findViewById(R.id.main_toolbar) as Toolbar
-        setSupportActionBar(myToolbar)
+        setSupportActionBar(binding.listToolbar)
+
+        val stickyService: Intent = Intent(this, StickyService::class.java)
+        startService(stickyService)
+    }
+
+
+    override fun onBind() {
+        super.onBind()
+
         progressBar.isIndeterminate = false
         progressBar.progress = 0
 
@@ -71,20 +89,28 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         timeline_list.adapter = adapter
 
 
-//        api.getShow()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .repeatWhen { completed -> completed.delay(3,TimeUnit.MINUTES) }
-//                .subscribe(
-//                        { cat ->
-//                            song_detail.text = cat.now?.song+" "+ cat.now?.name
-//                            Timber.d(cat.now?.song)
-//                            Timber.d(cat.next?.song)
-//                        },
-//                        { error ->
-//                            Timber.e(error)
-//                        }
-//                )
+        disposables.add(viewModel.loadingState().subscribe {
+            binding.swipeRefreshLayout.isRefreshing = it
+        })
+
+        disposables.add(viewModel.fetchErrors().subscribe {
+            //            errorFetchRepos()
+        })
+
+        disposables.add(viewModel.networkErrors().subscribe {
+            //            errorNoNetwork()
+        })
+//
+
+    }
+
+    override fun getViewBinding(): ActivityMainBinding {
+        return DataBindingUtil.setContentView(this, R.layout.activity_main)
+    }
+
+    override fun injectDependencies(graph: ApplicationComponent) {
+        graph.plus(MainModule(this))
+                .injectTo(this)
     }
 
 
@@ -92,7 +118,7 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         adapter.refresh(object : Callback<TimelineResult<Tweet>>() {
             override fun success(result: Result<TimelineResult<Tweet>>?) {
                 Log.d("onRefresh", "success")
-                swipeRefreshLayout.isRefreshing = false
+                binding.swipeRefreshLayout.isRefreshing = false
             }
 
             override fun failure(exception: TwitterException?) {
@@ -105,6 +131,14 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
         if (!mRadioManager.isPlaying) {
             Log.d("Type of quality", qualitySound)
             mRadioManager.startRadio(qualitySound)
+            viewModel.fetchSong()
+            disposables.add(viewModel.getSong().subscribe {
+                cat ->
+                binding.tvSongArtist.text = cat.next?.song
+                mRadioManager.updateNotification(cat.next?.song, cat.next?.name, R.drawable.default_art, R.drawable.default_art)
+            })
+
+//            mRadioManager.updateNotification("test", "test", R.drawable.default_art, R.drawable.default_art)
         } else {
             mRadioManager.stopRadio()
         }
@@ -127,6 +161,13 @@ class MainActivity : AppCompatActivity(), RadioListener, SwipeRefreshLayout.OnRe
             textviewControl.text = "RADIO STATE : LOADING..."
         }
     }
+
+    override fun onRadioClosed() {
+        runOnUiThread {
+            if (disposables.isDisposed) disposables.dispose()
+        }
+    }
+
 
     override fun onRadioConnected() {
 

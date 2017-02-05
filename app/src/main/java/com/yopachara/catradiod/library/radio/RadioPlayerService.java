@@ -41,6 +41,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.yopachara.catradiod.R;
+import com.yopachara.catradiod.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -432,14 +433,16 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
         Intent intentPlayPause = new Intent(NOTIFICATION_INTENT_PLAY_PAUSE);
         Intent intentOpenPlayer = new Intent(NOTIFICATION_INTENT_OPEN_PLAYER);
         Intent intentCancel = new Intent(NOTIFICATION_INTENT_CANCEL);
-
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         /**
          * Pending intents
          */
         PendingIntent playPausePending = PendingIntent.getBroadcast(this, 23, intentPlayPause, 0);
         PendingIntent openPending = PendingIntent.getBroadcast(this, 31, intentOpenPlayer, 0);
         PendingIntent cancelPending = PendingIntent.getBroadcast(this, 12, intentCancel, 0);
-
+        PendingIntent intent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
         /**
          * Remote view for normal view
          */
@@ -471,6 +474,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
                 .setSmallIcon(smallImage)
                 .setContentIntent(openPending)
                 .setPriority(Notification.PRIORITY_DEFAULT)
+                .setContentIntent(intent)
                 .setContent(mNotificationTemplate)
                 .setUsesChronometer(true)
                 .build();
@@ -564,5 +568,10 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
 
     }
 
+    private void notifyPlayerClosed() {
+        for (RadioListener mRadioListener : mListenerList) {
+            mRadioListener.onRadioClosed();
+        }
+    }
 
 }

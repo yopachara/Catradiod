@@ -17,6 +17,7 @@ import com.yopachara.catradiod.ui.main.TweetsTimelineDetailActivity
 
 class CustomTweetTimelineListAdapter(context: Context, timeline: Timeline<Tweet>) : TweetTimelineListAdapter(context, timeline) {
 
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = super.getView(position, convertView, parent)
 
