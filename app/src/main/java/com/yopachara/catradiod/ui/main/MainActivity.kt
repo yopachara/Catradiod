@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.Toolbar
+import android.support.v7.widget.ViewUtils
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -48,8 +51,9 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
         }
     }
 
-    private val searchTimeline: SearchTimeline = SearchTimeline.Builder().query("#หนังหน้าแมว").build()
-    val adapter: CustomTweetTimelineListAdapter = CustomTweetTimelineListAdapter(this, searchTimeline)
+    var adapter: TweetTimelineListAdapter = createTimelineFromQuery("หนังหน้าแมว")
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
@@ -59,6 +63,8 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
 
         val stickyService: Intent = Intent(this, StickyService::class.java)
         startService(stickyService)
+
+        bt_search.setOnClickListener { query(et_filter.text.toString()) }
     }
 
 
@@ -87,6 +93,7 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
         })
         swipeRefreshLayout.setOnRefreshListener(this)
         timeline_list.adapter = adapter
+
 
 
         disposables.add(viewModel.loadingState().subscribe {
@@ -118,6 +125,7 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
         adapter.refresh(object : Callback<TimelineResult<Tweet>>() {
             override fun success(result: Result<TimelineResult<Tweet>>?) {
                 Log.d("onRefresh", "success")
+                adapter.notifyDataSetChanged()
                 binding.swipeRefreshLayout.isRefreshing = false
             }
 
@@ -142,6 +150,27 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
         } else {
             mRadioManager.stopRadio()
         }
+    }
+
+    fun query(name: String?) {
+        timeline_list.adapter = createTimelineFromQuery("$name")
+        onRefresh()
+    }
+
+    fun createQuery(name: String?): SearchTimeline {
+        return SearchTimeline.Builder()
+                .query("$name")
+                .build()
+    }
+
+    fun createTimelineFromQuery(name: String?): TweetTimelineListAdapter {
+        return TweetTimelineListAdapter.Builder(this)
+                .setTimeline(createQuery("$name"))
+                .build()
+    }
+
+    fun createDialogFilterTimeline() {
+
     }
 
     override fun onResume() {
@@ -239,5 +268,6 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
             }
             else -> return super.onOptionsItemSelected(item)
         }
+
     }
 }
