@@ -1,164 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:sothree="http://schemas.android.com/tools">
 
-    <data>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    android:id="@+id/slidingLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    sothree:umanoDragView="@+id/dragView"
+    sothree:umanoOverlay="true"
+    sothree:umanoPanelHeight="68dp"
+    sothree:umanoParallaxOffset="100dp"
+    sothree:umanoShadowHeight="4dp">
 
-        <variable
-            name="viewModel"
-            type="com.yopachara.catradiod.ui.main.MainViewModel"/>
-    </data>
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/slidingLayout"
+    <!-- MAIN CONTENT -->
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        sothree:umanoDragView="@+id/dragView"
-        sothree:umanoOverlay="true"
-        sothree:umanoPanelHeight="68dp"
-        sothree:umanoParallaxOffset="100dp"
-        sothree:umanoShadowHeight="4dp">
+        android:layout_height="match_parent">
 
-
-        <!-- MAIN CONTENT -->
-        <RelativeLayout
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/appbar"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/listToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay">
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"/>
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/listToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"/>
+        </android.support.design.widget.AppBarLayout>
 
-            </android.support.design.widget.AppBarLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="384dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"/>
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="384dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"/>
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/appbar"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-                    <EditText
-                        android:id="@+id/et_filter"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="0.85"
-                        android:hint="Enter filter timeline"/>
-
-                    <ImageButton
-                        android:id="@+id/bt_search"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.15"
-                        android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        android:src="@android:drawable/ic_menu_search"/>
-
-                </LinearLayout>
-
-
-                <android.support.v4.widget.SwipeRefreshLayout
-                    android:id="@+id/swipeRefreshLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ListView android:id="@+id/timeline_list"
-                              android:layout_width="match_parent"
-                              android:layout_height="match_parent"
-                              android:divider="#e1e8ed"
-                              android:dividerHeight="1dp"/>
-
-
-                </android.support.v4.widget.SwipeRefreshLayout>
-
-            </LinearLayout>
-        </RelativeLayout>
-
-
-        <!-- SLIDING LAYOUT -->
-        <android.support.constraint.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/tw__composer_black"
-            android:clickable="true" android:focusable="false"
-            android:orientation="horizontal">
+            android:background="#E4E6E3"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <ImageView
-                android:id="@+id/notification_play"
-                style="@style/NotificationAction.Play"
-                android:layout_width="wrap_content" android:layout_height="48dp"
-                android:src="@drawable/btn_playback_play"
-                app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
-                app:layout_constraintLeft_toLeftOf="parent"
-                tools:layout_constraintLeft_creator="1"/>
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/notification_collapse"
-                style="@style/NotificationAction.Collapse"
-                android:layout_width="60dp" android:layout_height="48dp"
-                android:layout_marginEnd="168dp"
-                android:layout_marginStart="8dp" android:layout_marginTop="3dp"
-                android:src="@drawable/btn_notification_collapse"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintLeft_toRightOf="@+id/notification_play"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" tools:layout_constraintTop_creator="1"/>
+                <ListView android:id="@+id/timeline_list"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:divider="#e1e8ed"
+                          android:dividerHeight="1dp"/>
 
 
-            <TextView
-                android:id="@+id/textviewControl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginEnd="63dp"
-                android:layout_marginStart="64dp"
-                android:text="RADIO STATE : IDLE"
-                android:textColor="@color/tw__composer_white"
-                app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
-                app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/notification_collapse"
-                tools:layout_constraintLeft_creator="1"
-                tools:layout_constraintRight_creator="1"/>
-            <TextView
-                android:id="@+id/tv_song_artist"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:text="view" android:textColor="@color/tw__composer_white"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/notification_collapse"/>
-        </android.support.constraint.ConstraintLayout>
+            </android.support.v4.widget.SwipeRefreshLayout>
+            <com.yalantis.filter.widget.Filter
+                android:id="@+id/filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!-- SLIDING LAYOUT -->
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tw__composer_black"
+        android:clickable="true" android:focusable="false"
+        android:orientation="horizontal">
 
 
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-</layout>
+        <ImageView
+            android:id="@+id/notification_play"
+            style="@style/NotificationAction.Play"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:src="@drawable/btn_playback_play"
+            app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_constraintLeft_creator="1"/>
+
+        <ImageView
+            android:id="@+id/notification_collapse"
+            style="@style/NotificationAction.Collapse"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="168dp"
+            android:layout_marginStart="8dp" android:layout_marginTop="3dp"
+            android:src="@drawable/btn_notification_collapse"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/notification_play"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintTop_creator="1"/>
+
+
+        <TextView
+            android:id="@+id/textviewControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="63dp"
+            android:layout_marginStart="64dp"
+            android:text="RADIO STATE : IDLE"
+            android:textColor="@color/tw__composer_white"
+            app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
+            app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/notification_collapse"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"/>
+        <TextView
+            android:id="@+id/tv_song_artist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="view" android:textColor="@color/tw__composer_white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notification_collapse"/>
+    </android.support.constraint.ConstraintLayout>
+
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

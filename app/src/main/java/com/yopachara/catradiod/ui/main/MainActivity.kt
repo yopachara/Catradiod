@@ -4,14 +4,19 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.support.v7.widget.ViewUtils
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.widget.Adapter
 import android.widget.Toast
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
@@ -20,27 +25,35 @@ import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.tweetui.SearchTimeline
 import com.twitter.sdk.android.tweetui.TimelineResult
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter
-import com.yopachara.catradiod.ApplicationComponent
+import com.yalantis.filter.adapter.FilterAdapter
+import com.yalantis.filter.listener.FilterListener
+import com.yalantis.filter.widget.Filter
+import com.yalantis.filter.widget.FilterItem
 import com.yopachara.catradiod.R
-import com.yopachara.catradiod.adapter.CustomTweetTimelineListAdapter
+import com.yopachara.catradiod.data.model.Tag
 import com.yopachara.catradiod.data.remote.StickyService
 import com.yopachara.catradiod.library.radio.RadioListener
 import com.yopachara.catradiod.library.radio.RadioManager
-import com.yopachara.catradiod.databinding.ActivityMainBinding
+import com.yopachara.catradiod.ui.base.BaseActivity
 
-import com.yopachara.catradiod.ui.base.ViewModelActivity
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.ResponseBody
-import org.reactivestreams.Subscription
 import timber.log.Timber
+import com.yopachara.catradiod.ui.main.MainContract
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), RadioListener, SwipeRefreshLayout.OnRefreshListener {
+class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefreshLayout.OnRefreshListener, FilterListener<Tag> {
     internal var mRadioManager: RadioManager = RadioManager.with(this)
     private var qualitySound = ""
-    val disposables: CompositeDisposable = CompositeDisposable()
+    @BindView(R.id.listToolbar)
+    lateinit var toolbar: Toolbar
+    @BindView(R.id.filter)
+    lateinit var mFilter: Filter<Tag>
+
+    private var mColors: IntArray? = null
+    private var mTitles: Array<String>? = null
 
     val actionCallback = object : Callback<Tweet>() {
         override fun success(result: Result<Tweet>?) {
@@ -51,25 +64,31 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
         }
     }
 
-    var adapter: TweetTimelineListAdapter = createTimelineFromQuery("หนังหน้าแมว")
+    @Inject
+    lateinit var presenter: MainPresenter
 
+    lateinit var adapter: TweetTimelineListAdapter
+
+    override fun showRibotsEmpty() {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showError() {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
+        ButterKnife.bind(this)
         Timber.tag("MainActivity")
         Timber.d("MainActivity Created")
-        setSupportActionBar(binding.listToolbar)
+        setSupportActionBar(toolbar)
 
         val stickyService: Intent = Intent(this, StickyService::class.java)
         startService(stickyService)
-
-        bt_search.setOnClickListener { query(et_filter.text.toString()) }
-    }
-
-
-    override fun onBind() {
-        super.onBind()
+        adapter = createTimelineFromQuery("หนังหน้าแมว")
+//        bt_search.setOnClickListener { query(et_filter.text.toString()) }
 
         progressBar.isIndeterminate = false
         progressBar.progress = 0
@@ -94,39 +113,44 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
         swipeRefreshLayout.setOnRefreshListener(this)
         timeline_list.adapter = adapter
 
+        mColors = resources.getIntArray(R.array.colors)
+        mTitles = resources.getStringArray(R.array.job_titles)
 
-
-        disposables.add(viewModel.loadingState().subscribe {
-            binding.swipeRefreshLayout.isRefreshing = it
-        })
-
-        disposables.add(viewModel.fetchErrors().subscribe {
-            //            errorFetchRepos()
-        })
-
-        disposables.add(viewModel.networkErrors().subscribe {
-            //            errorNoNetwork()
-        })
-//
-
+        mFilter.adapter = Adapter(getTags())
+        mFilter.listener = this
+        mFilter.noSelectedItemText = getString(R.string.str_all_selected)
+        mFilter.build()
     }
 
-    override fun getViewBinding(): ActivityMainBinding {
-        return DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+    override fun onFilterDeselected(item: Tag) {
+        Timber.i(item.getText())
     }
 
-    override fun injectDependencies(graph: ApplicationComponent) {
-        graph.plus(MainModule(this))
-                .injectTo(this)
+    override fun onFilterSelected(item: Tag) {
+        query("จดหมายเด็กแมว")
+        Timber.i(item.getText())
     }
 
+    override fun onFiltersSelected(filters: ArrayList<Tag>) {
+        Timber.i(filters.toString())
+    }
+
+    override fun onNothingSelected() {
+        Timber.i("onNothingSelected")
+    }
+
+    private fun getTags(): List<Tag> {
+        val tags = mTitles!!.indices.mapTo(ArrayList<Tag>()) { Tag(mTitles!![it], mColors!![it]) }
+
+        return tags
+    }
 
     override fun onRefresh() {
         adapter.refresh(object : Callback<TimelineResult<Tweet>>() {
             override fun success(result: Result<TimelineResult<Tweet>>?) {
                 Log.d("onRefresh", "success")
                 adapter.notifyDataSetChanged()
-                binding.swipeRefreshLayout.isRefreshing = false
             }
 
             override fun failure(exception: TwitterException?) {
@@ -139,12 +163,12 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
         if (!mRadioManager.isPlaying) {
             Log.d("Type of quality", qualitySound)
             mRadioManager.startRadio(qualitySound)
-            viewModel.fetchSong()
-            disposables.add(viewModel.getSong().subscribe {
-                cat ->
-                binding.tvSongArtist.text = cat.next?.song
-                mRadioManager.updateNotification(cat.next?.song, cat.next?.name, R.drawable.default_art, R.drawable.default_art)
-            })
+//            viewModel.fetchSong()
+//            disposables.add(viewModel.getSong().subscribe {
+//                cat ->
+//                binding.tvSongArtist.text = cat.next?.song
+//                mRadioManager.updateNotification(cat.next?.song, cat.next?.name, R.drawable.default_art, R.drawable.default_art)
+//            })
 
 //            mRadioManager.updateNotification("test", "test", R.drawable.default_art, R.drawable.default_art)
         } else {
@@ -193,7 +217,7 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
 
     override fun onRadioClosed() {
         runOnUiThread {
-            if (disposables.isDisposed) disposables.dispose()
+            //            if (disposables.isDisposed) disposables.dispose()
         }
     }
 
@@ -269,5 +293,22 @@ class MainActivity : ViewModelActivity<MainViewModel, ActivityMainBinding>(), Ra
             else -> return super.onOptionsItemSelected(item)
         }
 
+    }
+
+    internal inner class Adapter(items: List<Tag>) : FilterAdapter<Tag>(items) {
+
+        override fun createView(position: Int, item: Tag): FilterItem {
+            val filterItem = FilterItem(this@MainActivity)
+
+            filterItem.strokeColor = mColors!![0]
+            filterItem.textColor = mColors!![0]
+            filterItem.checkedTextColor = ContextCompat.getColor(this@MainActivity, android.R.color.white)
+            filterItem.color = ContextCompat.getColor(this@MainActivity, android.R.color.white)
+            filterItem.checkedColor = (mColors as IntArray)[position]
+            filterItem.text = item.getText()
+            filterItem.deselect()
+
+            return filterItem
+        }
     }
 }

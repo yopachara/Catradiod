@@ -12,7 +12,6 @@ import com.twitter.sdk.android.tweetui.TweetUtils
 import com.twitter.sdk.android.tweetui.TweetView
 import com.yopachara.catradiod.R
 import kotlinx.android.synthetic.main.activity_embedded_tweets.*
-import kotlinx.android.synthetic.main.activity_tweets_details.*
 
 class EmbeddedTweetsActivity : AppCompatActivity() {
 
