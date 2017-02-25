@@ -1,20 +1,13 @@
 package com.yopachara.catradiod.ui.main
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.support.v7.widget.ViewUtils
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.*
-import android.widget.Adapter
-import android.widget.Toast
+import android.widget.AbsListView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -37,14 +30,19 @@ import com.yopachara.catradiod.library.radio.RadioManager
 import com.yopachara.catradiod.ui.base.BaseActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.ResponseBody
 import timber.log.Timber
-import com.yopachara.catradiod.ui.main.MainContract
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefreshLayout.OnRefreshListener, FilterListener<Tag> {
+class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefreshLayout.OnRefreshListener, FilterListener<Tag>, AbsListView.OnScrollListener {
+
+    override fun onScroll(p0: AbsListView?, p1: Int, p2: Int, p3: Int) {
+    }
+
+    override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
+        Timber.i("$p0 $p1")
+    }
+
     internal var mRadioManager: RadioManager = RadioManager.with(this)
     private var qualitySound = ""
     @BindView(R.id.listToolbar)
@@ -54,6 +52,8 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
     private var mColors: IntArray? = null
     private var mTitles: Array<String>? = null
+    private var mLastFirstVisibleItem: Int = 0
+    private var mIsScrollingUp: Boolean = false
 
     val actionCallback = object : Callback<Tweet>() {
         override fun success(result: Result<Tweet>?) {
@@ -112,7 +112,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         })
         swipeRefreshLayout.setOnRefreshListener(this)
         timeline_list.adapter = adapter
-
+        timeline_list.setOnScrollListener(this)
         mColors = resources.getIntArray(R.array.colors)
         mTitles = resources.getStringArray(R.array.job_titles)
 
@@ -128,16 +128,33 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     }
 
     override fun onFilterSelected(item: Tag) {
-        query("จดหมายเด็กแมว")
         Timber.i(item.getText())
+        if (item.getText().equals(mTitles!![0])) {
+            mFilter.deselectAll()
+            mFilter.collapse()
+        }
     }
 
     override fun onFiltersSelected(filters: ArrayList<Tag>) {
+        query(getFilterList(filters))
         Timber.i(filters.toString())
     }
 
+
     override fun onNothingSelected() {
         Timber.i("onNothingSelected")
+    }
+
+    fun getFilterList(filters: ArrayList<Tag>): String {
+        var text: String = ""
+        for (filter in filters) {
+            if (text == "") {
+                text = filter.getText()
+            } else {
+                text.plus(" " + filter.getText())
+            }
+        }
+        return text
     }
 
     private fun getTags(): List<Tag> {

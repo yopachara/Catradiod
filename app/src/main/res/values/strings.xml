@@ -16,16 +16,17 @@
     <string name="str_all_selected">All categories</string>
 
     <string-array name="job_titles">
-        <item>All categories</item>
-        <item>Design</item>
-        <item>iOS development</item>
-        <item>Android development</item>
-        <item>Web development</item>
-        <item>Business analysis</item>
-        <item>Research</item>
-        <item>Sales</item>
-        <item>Quality assurance</item>
-        <item>Customer support</item>
-        <item>Other</item>
+        <item>All Categories</item>
+        <item>Bedroom Studio</item>
+        <item>CatRadioActive</item>
+        <item>เค้าแมว</item>
+        <item>คนขอแมว</item>
+        <item>#จดหมายเด็กแมว</item>
+        <item>แมวสด</item>
+        <item>แมวค้นคน</item>
+        <item>หมอสองสามมิติ</item>
+        <item>แมวนอก</item>
+        <item>#หนังหน้าแมว</item>
     </string-array>
+
 </resources>
