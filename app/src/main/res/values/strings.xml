@@ -16,17 +16,9 @@
     <string name="str_all_selected">All categories</string>
 
     <string-array name="job_titles">
-        <item>All Categories</item>
-        <item>Bedroom Studio</item>
-        <item>CatRadioActive</item>
-        <item>เค้าแมว</item>
-        <item>คนขอแมว</item>
-        <item>#จดหมายเด็กแมว</item>
-        <item>แมวสด</item>
-        <item>แมวค้นคน</item>
-        <item>หมอสองสามมิติ</item>
-        <item>แมวนอก</item>
+        <item>#catradio</item>
         <item>#หนังหน้าแมว</item>
+        <item>#จดหมายเด็กแมว</item>
     </string-array>
 
 </resources>

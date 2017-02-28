@@ -25,6 +25,7 @@ import com.yalantis.filter.widget.FilterItem
 import com.yopachara.catradiod.R
 import com.yopachara.catradiod.data.model.Tag
 import com.yopachara.catradiod.data.remote.StickyService
+import com.yopachara.catradiod.data.remote.model.Cat
 import com.yopachara.catradiod.library.radio.RadioListener
 import com.yopachara.catradiod.library.radio.RadioManager
 import com.yopachara.catradiod.ui.base.BaseActivity
@@ -43,10 +44,12 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         Timber.i("$p0 $p1")
     }
 
-    internal var mRadioManager: RadioManager = RadioManager.with(this)
+    val mRadioManager: RadioManager = RadioManager.with(this)
     private var qualitySound = ""
+
     @BindView(R.id.listToolbar)
-    lateinit var toolbar: Toolbar
+    lateinit var mToolbar: Toolbar
+
     @BindView(R.id.filter)
     lateinit var mFilter: Filter<Tag>
 
@@ -73,8 +76,9 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showError() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showSong(cat: Cat) {
+        mRadioManager.updateNotification(cat.now?.song, cat.now?.name,R.drawable.default_art, R.drawable.default_art)
+        tv_song_artist.text = cat.now?.song + " " + cat.now?.name
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,12 +86,12 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
         Timber.tag("MainActivity")
-        Timber.d("MainActivity Created")
-        setSupportActionBar(toolbar)
-
+        setSupportActionBar(mToolbar)
+        activityComponent.inject(this)
+        presenter.attachView(this)
         val stickyService: Intent = Intent(this, StickyService::class.java)
         startService(stickyService)
-        adapter = createTimelineFromQuery("หนังหน้าแมว")
+        adapter = createTimelineFromQuery("#หนังหน้าแมว")
 //        bt_search.setOnClickListener { query(et_filter.text.toString()) }
 
         progressBar.isIndeterminate = false
@@ -129,10 +133,10 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
     override fun onFilterSelected(item: Tag) {
         Timber.i(item.getText())
-        if (item.getText().equals(mTitles!![0])) {
-            mFilter.deselectAll()
-            mFilter.collapse()
-        }
+//        if (item.getText().equals(mTitles!![0])) {
+//            mFilter.deselectAll()
+//            mFilter.collapse()
+//        }
     }
 
     override fun onFiltersSelected(filters: ArrayList<Tag>) {
@@ -142,9 +146,21 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
 
     override fun onNothingSelected() {
+        query(getFilterArray(mTitles!!))
         Timber.i("onNothingSelected")
     }
 
+    fun getFilterArray(filters: Array<String>): String {
+        var text: String = ""
+        for (filter in filters) {
+            if (text == "") {
+                text = filter
+            } else {
+                text.plus(" " + filter)
+            }
+        }
+        return text
+    }
     fun getFilterList(filters: ArrayList<Tag>): String {
         var text: String = ""
         for (filter in filters) {
@@ -186,8 +202,8 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 //                binding.tvSongArtist.text = cat.next?.song
 //                mRadioManager.updateNotification(cat.next?.song, cat.next?.name, R.drawable.default_art, R.drawable.default_art)
 //            })
-
-//            mRadioManager.updateNotification("test", "test", R.drawable.default_art, R.drawable.default_art)
+            presenter.loadRibots()
+            mRadioManager.updateNotification("test", "test", R.drawable.default_art, R.drawable.default_art)
         } else {
             mRadioManager.stopRadio()
         }
@@ -222,6 +238,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
     override fun onDestroy() {
         super.onDestroy()
+        presenter.detachView()
         mRadioManager.disconnect()
     }
 

@@ -34,26 +34,28 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="384dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"/>
+
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#E4E6E3"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="53dp">
+
+
+
                 <ListView android:id="@+id/timeline_list"
                           android:layout_width="match_parent"
                           android:layout_height="match_parent"
@@ -76,7 +78,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/tw__composer_black"
-        android:clickable="true" android:focusable="false"
+        android:clickable="true"
+        android:focusable="false"
         android:orientation="horizontal">
 
 

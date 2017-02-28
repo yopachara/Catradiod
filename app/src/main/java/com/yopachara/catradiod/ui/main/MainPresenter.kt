@@ -3,6 +3,7 @@ package com.yopachara.catradiod.ui.main
 import com.yopachara.catradiod.data.DataManager
 import com.yopachara.catradiod.data.remote.model.Cat
 import com.yopachara.catradiod.injection.ConfigPersistent
+import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
@@ -11,6 +12,7 @@ import rx.lang.kotlin.addTo
 import rx.schedulers.Schedulers
 import rx.subscriptions.CompositeSubscription
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 @ConfigPersistent
 class MainPresenter
@@ -24,8 +26,8 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
         compositeSubscription.clear()
     }
 
-//    fun fetchSong(){
-        //        networkRequest = networkInteractor.hasNetworkConnectionCompletable()
+    //    fun fetchSong(){
+    //        networkRequest = networkInteractor.hasNetworkConnectionCompletable()
 //                .andThen(apiService.getSong())
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
@@ -47,14 +49,15 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
         dataManager.getSong()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(FunctionSubscriber<Cat>()
-                        .onNext {
-//                            if (it.isEmpty()) view.showRibotsEmpty() else view.showRibots(it)
-                        }
-                        .onError {
-                            Timber.e(it, "There was an error loading the ribots.")
-                            view.showError()
-                        }
+                .repeatWhen { completed -> completed.delay(1, TimeUnit.MINUTES) }
+                .subscribe({
+                    cat ->
+                    view.showSong(cat)
+                    //                            if (it.isEmpty()) view.showRibotsEmpty() else view.showRibots(it)
+                }
+                        , {
+                    Timber.e(it, "There was an error loading the ribots.")
+                }
                 ).addTo(compositeSubscription)
     }
 

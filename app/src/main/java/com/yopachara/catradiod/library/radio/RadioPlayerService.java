@@ -72,7 +72,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
     /**
      * Notification ID
      */
-    private static final int NOTIFICATION_ID = 001;
+    private static final int NOTIFICATION_ID = 13;
 
     /**
      * Logging control variable
@@ -433,16 +433,14 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
         Intent intentPlayPause = new Intent(NOTIFICATION_INTENT_PLAY_PAUSE);
         Intent intentOpenPlayer = new Intent(NOTIFICATION_INTENT_OPEN_PLAYER);
         Intent intentCancel = new Intent(NOTIFICATION_INTENT_CANCEL);
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
         /**
          * Pending intents
          */
         PendingIntent playPausePending = PendingIntent.getBroadcast(this, 23, intentPlayPause, 0);
         PendingIntent openPending = PendingIntent.getBroadcast(this, 31, intentOpenPlayer, 0);
         PendingIntent cancelPending = PendingIntent.getBroadcast(this, 12, intentCancel, 0);
-        PendingIntent intent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
         /**
          * Remote view for normal view
          */
@@ -474,7 +472,6 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
                 .setSmallIcon(smallImage)
                 .setContentIntent(openPending)
                 .setPriority(Notification.PRIORITY_DEFAULT)
-                .setContentIntent(intent)
                 .setContent(mNotificationTemplate)
                 .setUsesChronometer(true)
                 .build();
@@ -532,6 +529,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
             for (int j = 0; j < trackGroup.length; j++) {
                 Metadata trackMetadata = trackGroup.getFormat(j).metadata;
                 if (trackMetadata != null) {
+
                 }
             }
         }
@@ -546,7 +544,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
 
-        if (playbackState == ExoPlayer.STATE_READY) {
+        if(playbackState == ExoPlayer.STATE_READY){
 
             mRadioState = State.PLAYING;
             buildNotification();
@@ -568,10 +566,5 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
 
     }
 
-    private void notifyPlayerClosed() {
-        for (RadioListener mRadioListener : mListenerList) {
-            mRadioListener.onRadioClosed();
-        }
-    }
 
 }

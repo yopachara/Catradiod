@@ -13,7 +13,7 @@ import com.yopachara.catradiod.library.radio.RadioPlayerService;
 /**
  * Created by mertsimsek on 04/11/15.
  */
-public class PlayerControllerBroadcast extends BroadcastReceiver {
+public class PlayerControllerBroadcast extends BroadcastReceiver{
 
     /**
      * This receiver receives STOP controlling between player services

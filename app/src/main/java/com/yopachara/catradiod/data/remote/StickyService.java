@@ -11,6 +11,7 @@ import com.yopachara.catradiod.library.radio.RadioManager;
 
 public class StickyService extends Service {
     private SharedPreferences mPrefs;
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return START_STICKY;
@@ -24,7 +25,7 @@ public class StickyService extends Service {
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        if(RadioManager.getService() != null)
+        if (RadioManager.getService() != null)
             RadioManager.getService().stopFromNotification();
     }
 }
