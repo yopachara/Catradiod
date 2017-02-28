@@ -257,7 +257,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         super.onResume()
         mRadioManager.connect()
         if (mRadioManager.isConnected && mRadioManager.isPlaying) {
-            textviewControl.text = "RADIO STATE : PLAYING..."
+            textviewControl.text = getString(R.string.radio_state_playing)
             presenter.loadRibots()
         }
     }
@@ -272,7 +272,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     override fun onRadioLoading() {
         runOnUiThread {
             //TODO Do UI works here.
-            textviewControl.text = "RADIO STATE : LOADING..."
+            textviewControl.text = getString(R.string.radio_state_loading)
         }
     }
 
@@ -290,7 +290,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     override fun onRadioStarted() {
         runOnUiThread {
             //TODO Do UI works here.
-            textviewControl.text = "RADIO STATE : PLAYING..."
+            textviewControl.text = getString(R.string.radio_state_playing)
 
         }
     }
@@ -298,7 +298,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     override fun onRadioStopped() {
         runOnUiThread {
             //TODO Do UI works here
-            textviewControl.text = "RADIO STATE : STOPPED."
+            textviewControl.text = getString(R.string.radio_state_stopped)
         }
     }
 

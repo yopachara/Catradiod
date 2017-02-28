@@ -7,13 +7,16 @@
 
     <!-- Menu -->
     <string name="action_settings">Settings</string>
-    <string name="action_hide">Hide Panel</string>
-    <string name="action_show">Show Panel</string>
-    <string name="action_quality_hq">Change to HQ</string>
-    <string name="action_quality_lq">Change to LQ</string>
+    <string name="action_hide">ซ่อนแถบด้านล่าง</string>
+    <string name="action_show">แสดงแถบด้านล่าง</string>
+    <string name="action_quality_hq">เปลี่ยนเป็นความคมชัดสูง</string>
+    <string name="action_quality_lq">เปลี่ยนเป็นความคมชัดต่ำ</string>
     <string name="action_anchor_enable">Enable Anchor Point</string>
     <string name="action_anchor_disable">Disable Anchor Point</string>
     <string name="str_all_selected">All categories</string>
+    <string name="radio_state_stopped">สถานะ : กำลังหยุด</string>
+    <string name="radio_state_playing">สถานะ : กำลังเล่น</string>
+    <string name="radio_state_loading">สถานะ : กำลังโหลด</string>
 
     <string-array name="job_titles">
         <item>#catradio</item>
