@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.sothree.slidinguppanel.SlidingUpPanelLayout
-    android:id="@+id/slidingLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:sothree="http://schemas.android.com/tools"
+    android:id="@+id/slidingLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
@@ -35,7 +35,6 @@
         </android.support.design.widget.AppBarLayout>
 
 
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -55,7 +54,6 @@
                 android:layout_marginTop="53dp">
 
 
-
                 <ListView android:id="@+id/timeline_list"
                           android:layout_width="match_parent"
                           android:layout_height="match_parent"
@@ -72,69 +70,75 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- SLIDING LAYOUT -->
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/dragView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/tw__composer_black"
         android:clickable="true"
         android:focusable="false"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
 
-        <ImageView
-            android:id="@+id/notification_play"
-            style="@style/NotificationAction.Play"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:src="@drawable/btn_playback_play"
-            app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
-            app:layout_constraintLeft_toLeftOf="parent"
-            tools:layout_constraintLeft_creator="1"/>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/notification_collapse"
-            style="@style/NotificationAction.Collapse"
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="168dp"
-            android:layout_marginStart="8dp" android:layout_marginTop="3dp"
-            android:src="@drawable/btn_notification_collapse"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toRightOf="@+id/notification_play"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_constraintTop_creator="1"/>
+            <ImageView
+                android:id="@+id/notification_play"
+                style="@style/NotificationAction.Play"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:src="@drawable/btn_playback_play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_constraintLeft_creator="1"/>
+
+            <ImageView
+                android:id="@+id/notification_collapse"
+                style="@style/NotificationAction.Collapse"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="168dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/btn_notification_collapse"
+                app:layout_constraintBottom_toBottomOf="@+id/notification_play"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@+id/notification_play"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/notification_play"/>
 
 
-        <TextView
-            android:id="@+id/textviewControl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginEnd="63dp"
-            android:layout_marginStart="64dp"
-            android:text="RADIO STATE : IDLE"
-            android:textColor="@color/tw__composer_white"
-            app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
-            app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/notification_collapse"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1"/>
-        <TextView
-            android:id="@+id/tv_song_artist"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="view" android:textColor="@color/tw__composer_white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notification_collapse"/>
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/textviewControl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:text="RADIO STATE : IDLE"
+                android:textColor="@color/tw__composer_white"
+                app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/notification_collapse"/>
+            <TextView
+                android:id="@+id/tv_song_artist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="song name"
+                android:textAlignment="center"
+                android:textColor="@color/tw__composer_white"
+                app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
+                app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
+                app:layout_constraintRight_toRightOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
 
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

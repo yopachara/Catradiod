@@ -40,11 +40,27 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     override fun onScroll(p0: AbsListView?, p1: Int, p2: Int, p3: Int) {
     }
 
-    override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
-        Timber.i("$p0 $p1")
+    override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
+//        Timber.i("$p0 $p1")
+
+        if (view != null) {
+            if (view.id == timeline_list.id) {
+                val currentFirstVisibleItem: Int = timeline_list.firstVisiblePosition;
+
+                if (currentFirstVisibleItem > mLastFirstVisibleItem) {
+                    mIsScrollingUp = false;
+                    slidingLayout.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
+                } else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
+                    mIsScrollingUp = true;
+                    slidingLayout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                }
+
+                mLastFirstVisibleItem = currentFirstVisibleItem;
+            }
+        }
     }
 
-    val mRadioManager: RadioManager = RadioManager.with(this)
+    internal var mRadioManager: RadioManager = RadioManager.with(this)
     private var qualitySound = ""
 
     @BindView(R.id.listToolbar)
@@ -77,8 +93,13 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     }
 
     override fun showSong(cat: Cat) {
-        mRadioManager.updateNotification(cat.now?.song, cat.now?.name,R.drawable.default_art, R.drawable.default_art)
-        tv_song_artist.text = cat.now?.song + " " + cat.now?.name
+        if (cat.now !=null) {
+            mRadioManager.updateNotification(cat.now?.song, cat.now?.name, R.drawable.default_art, R.drawable.default_art)
+            tv_song_artist.text = cat.now?.song + " " + cat.now?.name
+        } else{
+            mRadioManager.updateNotification("no","song", R.drawable.default_art, R.drawable.default_art)
+            tv_song_artist.text = "no song now"
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -161,6 +182,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         }
         return text
     }
+
     fun getFilterList(filters: ArrayList<Tag>): String {
         var text: String = ""
         for (filter in filters) {
@@ -183,6 +205,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         adapter.refresh(object : Callback<TimelineResult<Tweet>>() {
             override fun success(result: Result<TimelineResult<Tweet>>?) {
                 Log.d("onRefresh", "success")
+                swipeRefreshLayout.isRefreshing = false
                 adapter.notifyDataSetChanged()
             }
 
@@ -233,6 +256,10 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     override fun onResume() {
         super.onResume()
         mRadioManager.connect()
+        if (mRadioManager.isConnected && mRadioManager.isPlaying) {
+            textviewControl.text = "RADIO STATE : PLAYING..."
+            presenter.loadRibots()
+        }
     }
 
 

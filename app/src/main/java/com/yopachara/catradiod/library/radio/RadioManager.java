@@ -102,6 +102,11 @@ public class RadioManager implements IRadioManager {
         return mService.isPlaying();
     }
 
+    public boolean isConnected() {
+        log("isConnected : " + isServiceConnected);
+        return isServiceConnected;
+    }
+
     /**
      * Register listener to listen radio service actions
      * @param mRadioListener
