@@ -26,9 +26,6 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
-    }
     lintOptions {
         disable "ResourceType"
     }
@@ -109,9 +106,6 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'io.reactivex:rxkotlin:0.60.0'
 
-    // Databinding
-    kapt "com.android.databinding:compiler:$android_plugin_version"
-
     // Loging
     compile 'com.jakewharton.timber:timber:4.3.0'
 
@@ -126,6 +120,8 @@ dependencies {
     compile 'com.google.android.exoplayer:exoplayer:r2.1.1'
     compile 'com.github.yalantis:searchfilter:v1.0.1'
 
+    // font
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
 }
 repositories {
