@@ -8,13 +8,14 @@ import com.yopachara.catradiod.injection.component.DaggerApplicationComponent
 import com.yopachara.catradiod.injection.module.ApplicationModule
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
 /**
-* Created by dw03 on 8/19/2016 AD.
-*/
+ * Created by dw03 on 8/19/2016 AD.
+ */
 
-class CatradiodAPP: Application() {
+class CatradiodAPP : Application() {
 
     lateinit var applicationComponent: ApplicationComponent
         private set
@@ -31,7 +32,10 @@ class CatradiodAPP: Application() {
         }
         val authConfig = TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET)
         Fabric.with(this, Twitter(authConfig))
-
+        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/superspace_regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build())
         initDaggerComponent()
 
     }

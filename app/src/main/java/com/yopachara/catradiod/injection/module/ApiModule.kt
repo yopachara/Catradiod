@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.yopachara.catradiod.data.remote.ApiConstants
 import com.yopachara.catradiod.data.remote.CatService
+import com.yopachara.catradiod.data.remote.CatWebService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -40,5 +41,17 @@ class ApiModule {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build()
                 .create(CatService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesCatWebService(okHttpClient: OkHttpClient, gson: Gson): CatWebService {
+        return Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(ApiConstants.CAT_WEBSERVICE)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build()
+                .create(CatWebService::class.java)
     }
 }

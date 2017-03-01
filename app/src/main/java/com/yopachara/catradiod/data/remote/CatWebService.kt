@@ -1,14 +1,12 @@
 package com.yopachara.catradiod.data.remote
 
-import com.yopachara.catradiod.data.remote.model.Cat
-import com.yopachara.catradiod.data.remote.model.SearchResponse
+import com.yopachara.catradiod.data.model.DjSchedule
 import retrofit2.http.GET
-import retrofit2.http.Query
 import rx.Observable
 
-interface CatService {
+interface CatWebService {
 
-    @GET("now.php")
-    fun getSong(): Observable<Cat>
+    @GET("service/web_service/dj")
+    fun getDj(): Observable<DjSchedule>
 
 }

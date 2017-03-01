@@ -1,5 +1,6 @@
 package com.yopachara.catradiod.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -32,6 +33,7 @@ import com.yopachara.catradiod.ui.base.BaseActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
 import javax.inject.Inject
 
@@ -93,11 +95,11 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     }
 
     override fun showSong(cat: Cat) {
-        if (cat.now !=null) {
+        if (cat.now != null) {
             mRadioManager.updateNotification(cat.now?.song, cat.now?.name, R.drawable.default_art, R.drawable.default_art)
             tv_song_artist.text = cat.now?.song + " " + cat.now?.name
-        } else{
-            mRadioManager.updateNotification("no","song", R.drawable.default_art, R.drawable.default_art)
+        } else {
+            mRadioManager.updateNotification("no", "song", R.drawable.default_art, R.drawable.default_art)
             tv_song_artist.text = "no song now"
         }
     }
@@ -371,5 +373,9 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
             return filterItem
         }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 }

@@ -52,10 +52,10 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
                 .repeatWhen { completed -> completed.delay(1, TimeUnit.MINUTES) }
                 .subscribe({
                     cat ->
+                    Timber.d(cat.toString())
                     view.showSong(cat)
                     //                            if (it.isEmpty()) view.showRibotsEmpty() else view.showRibots(it)
-                }
-                        , {
+                }, {
                     Timber.e(it, "There was an error loading the ribots.")
                 }
                 ).addTo(compositeSubscription)

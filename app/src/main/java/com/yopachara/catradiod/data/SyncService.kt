@@ -8,13 +8,16 @@ import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import android.os.IBinder
 import com.yopachara.catradiod.CatradiodAPP
 import com.yopachara.catradiod.data.DataManager
+import com.yopachara.catradiod.data.model.DjSchedule
 import com.yopachara.catradiod.extension.isNetworkConnected
 import com.yopachara.catradiod.extension.toggleAndroidComponent
+import rx.Subscriber
 
 import javax.inject.Inject
 
 import rx.Subscription
 import rx.lang.kotlin.FunctionSubscriber
+import rx.lang.kotlin.subscriber
 import rx.schedulers.Schedulers
 import timber.log.Timber
 
@@ -61,6 +64,12 @@ class SyncService : Service() {
 //                            Timber.w(it, "Error syncing.")
 //                            stopSelf(startId)
 //                        })
+        subscription = dataManager.syncSchedule()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe { dj ->
+
+                }
 
         return START_STICKY
     }

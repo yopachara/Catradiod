@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import com.yopachara.catradiod.data.DataManager
 import com.yopachara.catradiod.data.SyncService
+import com.yopachara.catradiod.data.remote.CatService
+import com.yopachara.catradiod.data.remote.CatWebService
 import dagger.Component
 import com.yopachara.catradiod.injection.ApplicationContext
 import com.yopachara.catradiod.injection.module.ApplicationModule
@@ -18,7 +20,8 @@ interface ApplicationComponent {
 
     @ApplicationContext fun context(): Context
     fun application(): Application
-//    fun ribotsService(): RibotsService
-//    fun databaseHelper(): DatabaseHelper
+    fun catService(): CatService
+    fun catWebService(): CatWebService
+    //    fun databaseHelper(): DatabaseHelper
     fun dataManager(): DataManager
 }
