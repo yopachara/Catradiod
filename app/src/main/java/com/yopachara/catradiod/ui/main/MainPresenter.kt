@@ -31,9 +31,12 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({
-                    dj -> Timber.d(dj.toString())
-                },{
-                    e->Timber.e(e)
+                    dj ->
+                    Timber.d(dj.toString())
+                    view.showDj(dj)
+                }, {
+                    e ->
+                    Timber.e(e)
                 })
 
     }

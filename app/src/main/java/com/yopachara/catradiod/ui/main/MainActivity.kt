@@ -25,9 +25,11 @@ import com.yalantis.filter.widget.Filter
 import com.yalantis.filter.widget.FilterItem
 import com.yopachara.catradiod.R
 import com.yopachara.catradiod.data.SyncService
+import com.yopachara.catradiod.data.model.DjSchedule
 import com.yopachara.catradiod.data.model.Tag
 import com.yopachara.catradiod.data.remote.StickyService
 import com.yopachara.catradiod.data.remote.model.Cat
+import com.yopachara.catradiod.extension.TextUtil
 import com.yopachara.catradiod.library.radio.RadioListener
 import com.yopachara.catradiod.library.radio.RadioManager
 import com.yopachara.catradiod.ui.base.BaseActivity
@@ -95,6 +97,11 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun showDj(dj: DjSchedule) {
+        tv_dj.text = dj.toString()
+    }
+
+
     override fun showSong(cat: Cat) {
         if (cat.now != null) {
             mRadioManager.updateNotification(cat.now?.song, cat.now?.name, R.drawable.default_art, R.drawable.default_art)
@@ -126,7 +133,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         qualitySound = resources.getString(R.string.radio_url_hq)
         mRadioManager.registerListener(this)
         mRadioManager.setLogging(true)
-        notification_play.setOnClickListener { view -> initializeUI() }
+        notification_play.setOnClickListener { initializeUI() }
         notification_collapse.setOnClickListener {
             mRadioManager.stopRadio()
         }
