@@ -58,6 +58,15 @@
         <!-- Sticky Service -->
         <service android:name=".data.remote.StickyService"/>
 
+        <service android:name=".data.SyncService"/>
+
+        <receiver
+            android:name=".data.SyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
         <receiver android:name=".ui.main.MyBroadcast">
             <intent-filter>
