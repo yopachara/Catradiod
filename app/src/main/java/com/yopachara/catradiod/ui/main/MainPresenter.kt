@@ -26,25 +26,18 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
         compositeSubscription.clear()
     }
 
-    //    fun fetchSong(){
-    //        networkRequest = networkInteractor.hasNetworkConnectionCompletable()
-//                .andThen(apiService.getSong())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .repeatWhen { completed -> completed.delay(1, TimeUnit.MINUTES) }
-//                .subscribe(
-//                        { cat ->
-//                            cats.onNext(cat)
-////                            song_detail = cat.now?.song+" "+ cat.now?.name
-//                            Timber.d(cat.toString())
-//                        },
-//                        { error ->
-//                            Timber.e(error)
-//                        }
-//                )
-//        addDisposable(networkRequest)
-//
-//    }
+    override fun syncDj() {
+        dataManager.getSchedule()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    dj -> Timber.d(dj.toString())
+                },{
+                    e->Timber.e(e)
+                })
+
+    }
+
     override fun loadRibots() {
         dataManager.getSong()
                 .observeOn(AndroidSchedulers.mainThread())

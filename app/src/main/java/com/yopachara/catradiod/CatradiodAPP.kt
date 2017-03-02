@@ -46,4 +46,13 @@ class CatradiodAPP : Application() {
                 .build()
     }
 
+    fun getComponent(): ApplicationComponent {
+        if (applicationComponent == null) {
+            applicationComponent = DaggerApplicationComponent.builder()
+                    .applicationModule(ApplicationModule(this))
+                    .build()
+        }
+        return applicationComponent
+    }
+
 }

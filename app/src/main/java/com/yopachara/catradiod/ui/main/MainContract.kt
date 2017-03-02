@@ -14,5 +14,6 @@ object MainContract {
 
     abstract class Presenter: BaseMvpPresenter<View>() {
         abstract fun loadRibots()
+        abstract fun syncDj()
     }
 }

@@ -67,9 +67,16 @@ class SyncService : Service() {
         subscription = dataManager.syncSchedule()
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
-                .subscribe { dj ->
-
-                }
+                .subscribe(FunctionSubscriber<DjSchedule>()
+                        .onError { e ->
+                            Timber.e(e)
+                            stopSelf(startId)
+                        }
+                        .onCompleted {
+                            Timber.i("onComplete")
+                            Timber.i(dataManager.getPreferenceHelper().getDjSchedule().toString())
+                            stopSelf(startId)
+                        })
 
         return START_STICKY
     }

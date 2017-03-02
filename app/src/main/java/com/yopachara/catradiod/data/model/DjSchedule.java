@@ -22,6 +22,9 @@ public class DjSchedule {
     @Expose
     private Data data;
 
+    public DjSchedule() {
+    }
+
     public Integer getTotal() {
         return total;
     }
@@ -62,4 +65,14 @@ public class DjSchedule {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "DjSchedule{" +
+                "total=" + total +
+                ", page=" + page +
+                ", totalPage=" + totalPage +
+                ", pageSize=" + pageSize +
+                ", data=" + data +
+                '}';
+    }
 }

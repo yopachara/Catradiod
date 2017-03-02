@@ -20,10 +20,12 @@ import rx.Observable
 import rx.Subscriber
 import rx.lang.kotlin.subscriber
 import timber.log.Timber
+import java.lang.reflect.Type
 
 
 @Singleton
 class PreferencesHelper @Inject constructor(@ApplicationContext context: Context) {
+    inline fun <reified T> genericType() = object : TypeToken<T>() {}.type
 
     fun saveDjSchedules(djSchedule: DjSchedule): Observable<DjSchedule> {
         return Observable.create(Observable.OnSubscribe<DjSchedule> { subscriber ->
@@ -41,6 +43,25 @@ class PreferencesHelper @Inject constructor(@ApplicationContext context: Context
 
     }
 
+    fun getDjSchedules(): Observable<DjSchedule> {
+        return Observable.create(Observable.OnSubscribe { subscriber ->
+            try {
+                val dj: DjSchedule = getDjSchedule()
+                subscriber.onNext(dj)
+                subscriber.onCompleted()
+            } catch (e: Exception) {
+                subscriber.onError(e)
+            }
+        })
+    }
+
+    fun getDjSchedule(): DjSchedule {
+        val defValue: String = Gson().toJson(DjSchedule());
+        val storedHashMapString: String = sp.getString("dj", defValue);
+        val turnsType = genericType<DjSchedule>()
+        val dj: DjSchedule = Gson().fromJson<DjSchedule>(storedHashMapString, turnsType)
+        return dj
+    }
 
     //    public Observable<Settings> saveSettingsAsObserve(Settings setting) {
 //        return Observable.create(new Observable.OnSubscribe<Settings>() {

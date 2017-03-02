@@ -86,4 +86,16 @@ public class Monday {
         this.dJ = dJ;
     }
 
+    @Override
+    public String toString() {
+        return "Monday{" +
+                "shiftStart='" + shiftStart + '\'' +
+                ", shiftEnd='" + shiftEnd + '\'' +
+                ", shiftThumb='" + shiftThumb + '\'' +
+                ", shortDesc='" + shortDesc + '\'' +
+                ", shiftTitle='" + shiftTitle + '\'' +
+                ", shiftDesc='" + shiftDesc + '\'' +
+                ", dJ=" + dJ +
+                '}';
+    }
 }

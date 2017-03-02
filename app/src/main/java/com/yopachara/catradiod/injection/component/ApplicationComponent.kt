@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.yopachara.catradiod.data.DataManager
 import com.yopachara.catradiod.data.SyncService
+import com.yopachara.catradiod.data.local.PreferencesHelper
 import com.yopachara.catradiod.data.remote.CatService
 import com.yopachara.catradiod.data.remote.CatWebService
 import dagger.Component
@@ -22,6 +23,6 @@ interface ApplicationComponent {
     fun application(): Application
     fun catService(): CatService
     fun catWebService(): CatWebService
-    //    fun databaseHelper(): DatabaseHelper
+    fun preferencesHelper(): PreferencesHelper
     fun dataManager(): DataManager
 }

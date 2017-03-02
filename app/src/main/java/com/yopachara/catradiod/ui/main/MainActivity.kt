@@ -24,6 +24,7 @@ import com.yalantis.filter.listener.FilterListener
 import com.yalantis.filter.widget.Filter
 import com.yalantis.filter.widget.FilterItem
 import com.yopachara.catradiod.R
+import com.yopachara.catradiod.data.SyncService
 import com.yopachara.catradiod.data.model.Tag
 import com.yopachara.catradiod.data.remote.StickyService
 import com.yopachara.catradiod.data.remote.model.Cat
@@ -97,7 +98,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     override fun showSong(cat: Cat) {
         if (cat.now != null) {
             mRadioManager.updateNotification(cat.now?.song, cat.now?.name, R.drawable.default_art, R.drawable.default_art)
-            tv_song_artist.text = cat.now?.song + " " + cat.now?.name
+            tv_song_artist.text = "${cat.now?.song} ${cat.now?.name}"
         } else {
             mRadioManager.updateNotification("no", "song", R.drawable.default_art, R.drawable.default_art)
             tv_song_artist.text = "no song now"
@@ -106,14 +107,16 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activityComponent.inject(this)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
+
         Timber.tag("MainActivity")
         setSupportActionBar(mToolbar)
-        activityComponent.inject(this)
         presenter.attachView(this)
-        val stickyService: Intent = Intent(this, StickyService::class.java)
-        startService(stickyService)
+        startService(Intent(this, StickyService::class.java))
+        startService(SyncService.getStartIntent(applicationContext))
+
         adapter = createTimelineFromQuery("#หนังหน้าแมว")
 //        bt_search.setOnClickListener { query(et_filter.text.toString()) }
 
@@ -147,6 +150,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         mFilter.listener = this
         mFilter.noSelectedItemText = getString(R.string.str_all_selected)
         mFilter.build()
+
     }
 
 
