@@ -98,7 +98,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     }
 
     override fun showDj(dj: DjSchedule) {
-        tv_dj.text = dj.toString()
+        tv_dj.text = TextUtil.formatString(dj.toString())
     }
 
 
@@ -157,7 +157,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         mFilter.listener = this
         mFilter.noSelectedItemText = getString(R.string.str_all_selected)
         mFilter.build()
-
+        presenter.syncDj()
     }
 
 

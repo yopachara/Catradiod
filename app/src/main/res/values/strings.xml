@@ -17,6 +17,7 @@
     <string name="radio_state_stopped">สถานะ : กำลังหยุด</string>
     <string name="radio_state_playing">สถานะ : กำลังเล่น</string>
     <string name="radio_state_loading">สถานะ : กำลังโหลด</string>
+    <string name="radio_state_idle">สถานะ : ว่าง</string>
 
     <string-array name="job_titles">
         <item>#catradio</item>

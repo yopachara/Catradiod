@@ -32,8 +32,10 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     dj ->
-                    Timber.d(dj.toString())
-                    view.showDj(dj)
+                    run {
+                        Timber.d(dj.toString())
+                        view.showDj(dj)
+                    }
                 }, {
                     e ->
                     Timber.e(e)
