@@ -2,7 +2,9 @@
     <string name="app_name">Catradiod</string>
 
     <!-- URL Catradio -->
-    <string name="radio_url_hq">http://203.145.115.35/CatRadio/CatRadio-High/chunklist_w1751788138.m3u8</string>
+    <string name="radio_url_hq">
+        http://203.145.115.35/CatRadio/CatRadio-High/chunklist_w1751788138.m3u8
+    </string>
     <string name="radio_url_lq">http://catradio.mylive.in.th:8000/livelq</string>
 
     <!-- Menu -->
@@ -18,6 +20,11 @@
     <string name="radio_state_playing">สถานะ : กำลังเล่น</string>
     <string name="radio_state_loading">สถานะ : กำลังโหลด</string>
     <string name="radio_state_idle">สถานะ : ว่าง</string>
+    <string name="about_me">About Me</string>
+
+    <string name="dark_theme">Dark Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="custom_theme">Custom Theme</string>
 
     <string-array name="job_titles">
         <item>#catradio</item>

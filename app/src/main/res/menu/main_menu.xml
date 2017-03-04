@@ -5,13 +5,20 @@
     <item
         android:id="@+id/action_toggle"
         android:orderInCategory="100"
-        sothree:showAsAction="never"
-        android:title="@string/action_hide"/>
+        android:title="@string/action_hide"
+        sothree:showAsAction="never"/>
 
     <item
         android:id="@+id/action_quality"
         android:orderInCategory="200"
+        android:title="@string/action_quality_lq"
+        sothree:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="300"
+        android:title="@string/about_me"
         sothree:showAsAction="never"
-        android:title="@string/action_quality_lq"/>
+    />
 
 </menu>

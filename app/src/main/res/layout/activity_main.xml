@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.sothree.slidinguppanel.SlidingUpPanelLayout
+    android:id="@+id/slidingLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:sothree="http://schemas.android.com/tools"
-    android:id="@+id/slidingLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
@@ -16,7 +16,9 @@
 
 
     <!-- MAIN CONTENT -->
+
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,16 +26,18 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/listToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"/>
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:theme="@style/ToolBarStyle"/>
 
         </android.support.design.widget.AppBarLayout>
-
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -66,17 +70,17 @@
                 android:id="@+id/filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- SLIDING LAYOUT -->
     <LinearLayout
+        android:id="@+id/dragView"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/dragView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/tw__composer_black"
         android:clickable="true"
         android:focusable="false"
         android:orientation="vertical">
@@ -92,7 +96,7 @@
                 style="@style/NotificationAction.Play"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:src="@drawable/btn_playback_play"
+                android:src="@drawable/ic_play_arrow_black_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -105,7 +109,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="168dp"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/btn_notification_collapse"
+                android:src="@drawable/ic_close_black_24dp"
                 app:layout_constraintBottom_toBottomOf="@+id/notification_play"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toRightOf="@+id/notification_play"
@@ -121,7 +125,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/radio_state_idle"
-                android:textColor="@color/tw__composer_white"
                 app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/notification_collapse"/>
@@ -132,18 +135,15 @@
                 android:layout_marginEnd="16dp"
                 android:text="song name"
                 android:textAlignment="center"
-                android:textColor="@color/tw__composer_white"
                 app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
                 app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
                 app:layout_constraintRight_toRightOf="parent"/>
         </android.support.constraint.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_dj"
-            android:text="schedule dj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/tw__composer_white"/>
+        <include
+            layout="@layout/component_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

@@ -125,6 +125,14 @@ dependencies {
     // font
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
+    // detecting gestures
+    compile 'com.github.nisrulz:sensey:1.6.1'
+
+    // about page
+    compile 'com.github.jrvansuita:MaterialAbout:0.1.1'
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
 }
 repositories {
     mavenCentral()

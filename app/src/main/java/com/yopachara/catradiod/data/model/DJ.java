@@ -62,4 +62,15 @@ public class DJ {
         this.status = status;
     }
 
+
+    @Override
+    public String toString() {
+        return "DJ{" +
+                "id='" + id + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", djImg='" + djImg + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

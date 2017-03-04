@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 
 /**
  * Created by mertsimsek on 03/07/15.
+ * Modify to Kotlin by yopachara
  */
 interface IRadioManager {
 
@@ -24,8 +25,8 @@ interface IRadioManager {
 
     fun disconnect()
 
-    fun updateNotification(singerName: String, songName: String, smallArt: Int, bigArt: Int)
+    fun updateNotification(singerName: String?, songName: String?, smallArt: Int, bigArt: Bitmap) {}
 
-    fun updateNotification(singerName: String, songName: String, smallArt: Int, bigArt: Bitmap)
+    fun updateNotification(song: String?, name: String?, default_art: Int, default_art1: Int) {}
 
 }

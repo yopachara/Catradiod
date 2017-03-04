@@ -18,6 +18,13 @@
             backward-compatibility can go here.
         -->
     </style>
+
+    <style name="ToolBarStyle" parent="AppTheme">
+        <item name="actionMenuTextColor">@color/tw__composer_black</item>
+        <item name="actionMenuTextAppearance">@color/colorPrimary</item>
+
+    </style>
+
     <!-- Notification bar event text -->
     <style name="NotificationText">
         <item name="android:layout_width">match_parent</item>
@@ -28,6 +35,17 @@
         <item name="android:layout_margin">2dp</item>
         <item name="android:color">#ffffff</item>
     </style>
+
+    <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 
     <!-- Notification bar actions -->
     <style name="NotificationAction">
@@ -44,6 +62,7 @@
     </style>
 
     <style name="NotificationAction.Play" parent="@style/NotificationAction">
+        <item name="android:colorBackground">@color/tw__composer_black</item>
     </style>
 
     <style name="NotificationAction.Next" parent="@style/NotificationAction">

@@ -28,7 +28,7 @@ class DataManager
     fun syncSchedule(): Observable<DjSchedule> {
         return catWebService.getDj()
                 .concatMap {
-                    Timber.d("syncSchedule "+it.toString())
+//                    Timber.d("syncSchedule "+it.toString())
                     preferencesHelper.saveDjSchedules(it)
                 }
     }

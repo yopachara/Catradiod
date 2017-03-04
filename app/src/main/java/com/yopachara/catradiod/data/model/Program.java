@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Sunday {
+public class Program {
 
     @SerializedName("shift_start")
     @Expose
@@ -88,7 +88,7 @@ public class Sunday {
 
     @Override
     public String toString() {
-        return "Sunday{" +
+        return "Program{" +
                 "shiftStart='" + shiftStart + '\'' +
                 ", shiftEnd='" + shiftEnd + '\'' +
                 ", shiftThumb='" + shiftThumb + '\'' +

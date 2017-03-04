@@ -10,79 +10,83 @@ public class Data {
 
     @SerializedName("MONDAY")
     @Expose
-    private List<Monday> monday = null;
+    private List<Program> monday = null;
     @SerializedName("TUESDAY")
     @Expose
-    private List<Tuesday> tuesday = null;
+    private List<Program> tuesday = null;
     @SerializedName("WEDNESDAY")
     @Expose
-    private List<Wednesday> wednesday = null;
+    private List<Program> wednesday = null;
     @SerializedName("THURSDAY")
     @Expose
-    private List<Thursday> thursday = null;
+    private List<Program> thursday = null;
     @SerializedName("FRIDAY")
     @Expose
-    private List<Friday> friday = null;
+    private List<Program> friday = null;
     @SerializedName("SATURDAY")
     @Expose
-    private List<Saturday> saturday = null;
+    private List<Program> saturday = null;
     @SerializedName("SUNDAY")
     @Expose
-    private List<Sunday> sunday = null;
+    private List<Program> sunday = null;
 
-    public List<Monday> getMONDAY() {
+    public List<Program> getMonday() {
         return monday;
     }
 
-    public void setMONDAY(List<Monday> mONDAY) {
-        this.monday = mONDAY;
+    public void setMonday(List<Program> monday) {
+        this.monday = monday;
     }
 
-    public List<Tuesday> getTUESDAY() {
+    public List<Program> getTuesday() {
         return tuesday;
     }
 
-    public void setTUESDAY(List<Tuesday> tUESDAY) {
-        this.tuesday = tUESDAY;
+    public void setTuesday(List<Program> tuesday) {
+        this.tuesday = tuesday;
     }
 
-    public List<Wednesday> getWEDNESDAY() {
+    public List<Program> getWednesday() {
         return wednesday;
     }
 
-    public void setWEDNESDAY(List<Wednesday> wEDNESDAY) {
-        this.wednesday = wEDNESDAY;
+    public void setWednesday(List<Program> wednesday) {
+        this.wednesday = wednesday;
     }
 
-    public List<Thursday> getTHURSDAY() {
+    public List<Program> getThursday() {
         return thursday;
     }
 
-    public void setTHURSDAY(List<Thursday> tHURSDAY) {
-        this.thursday = tHURSDAY;
+    public void setThursday(List<Program> thursday) {
+        this.thursday = thursday;
     }
 
-    public List<Friday> getFRIDAY() {
+    public List<Program> getFriday() {
         return friday;
     }
 
-    public void setFRIDAY(List<Friday> fRIDAY) {
-        this.friday = fRIDAY;
+    public void setFriday(List<Program> friday) {
+        this.friday = friday;
     }
 
-    public List<Saturday> getSATURDAY() {
+    public List<Program> getSaturday() {
         return saturday;
     }
 
-    public void setSATURDAY(List<Saturday> sATURDAY) {
-        this.saturday = sATURDAY;
+    public void setSaturday(List<Program> saturday) {
+        this.saturday = saturday;
     }
 
-    public List<Sunday> getSUNDAY() {
+    public List<Program> getSunday() {
         return sunday;
     }
 
-    public void setSUNDAY(List<Sunday> sUNDAY) {
+    public void setSunday(List<Program> sunday) {
+        this.sunday = sunday;
+    }
+
+    public void setSUNDAY(List<Program> sUNDAY) {
         this.sunday = sUNDAY;
     }
 
@@ -95,7 +99,7 @@ public class Data {
                 ", thursday=" + thursday +
                 ", friday=" + friday +
                 ", saturday=" + saturday +
-                ", sunday=" + sunday +
+                ", program=" + sunday +
                 '}';
     }
 }

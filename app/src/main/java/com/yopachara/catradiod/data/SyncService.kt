@@ -74,7 +74,7 @@ class SyncService : Service() {
                         }
                         .onCompleted {
                             Timber.i("onComplete")
-                            Timber.i(dataManager.getPreferenceHelper().getDjSchedule().toString())
+//                            Timber.i(dataManager.getPreferenceHelper().getDjSchedule().toString())
                             stopSelf(startId)
                         })
 
