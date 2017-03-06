@@ -7,12 +7,20 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+    signingConfigs {
+        release {
+            storeFile file('/Users/yopachara/Desktop/yopachara.jks')
+            storePassword "!Qq!147852"
+            keyAlias "yopachara"
+            keyPassword "!Qq!147852"
+        }
+    }
     defaultConfig {
         applicationId "com.yopachara.catradiod"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.2"
+        versionCode 5
+        versionName "1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi-v7a", "x86", "armeabi", "mips"
@@ -21,7 +29,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            signingConfig android.signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -81,8 +90,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // Google Support Libraries
-    compile "com.android.support:support-v4:$v.supportVersion"
-    compile "com.android.support:support-fragment:$v.supportVersion"
     compile "com.android.support:appcompat-v7:$v.supportVersion"
     compile "com.android.support:design:$v.supportVersion"
     compile "com.android.support:recyclerview-v7:$v.supportVersion"
@@ -96,7 +103,7 @@ dependencies {
     // Dagger 2
     kapt 'com.google.dagger:dagger-compiler:2.8'
     compile 'com.google.dagger:dagger:2.8'
-    provided "org.glassfish:javax.annotation:10.0-b28"
+//    provided "org.glassfish:javax.annotation:10.0-b28"
 
     // Retrofit
     compile "com.squareup.retrofit2:retrofit:$v.retrofitVersion"
@@ -120,7 +127,7 @@ dependencies {
     }
     // exoplayer
     compile 'com.google.android.exoplayer:exoplayer:r2.1.1'
-    compile 'com.github.yalantis:searchfilter:v1.0.1'
+    compile 'com.github.yalantis:searchfilter:v1.0.2'
 
     // font
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'

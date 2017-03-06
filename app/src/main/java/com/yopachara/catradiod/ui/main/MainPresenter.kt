@@ -70,18 +70,22 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
         val calendar = Calendar.getInstance()
         val time = millis2String(calendar.timeInMillis).split(":")
         for (program in programs) {
-            var shiftStart = program.shiftStart.split(":")[0]
-            var shiftEnd = program.shiftEnd.split(":")[0]
+            var shiftStartHr = program.shiftStart.split(":")[0]
+            val shiftEndHr = program.shiftEnd.split(":")[0]
+            var shiftStartMin = program.shiftStart.split(":")[1]
+            val shiftEndMin = program.shiftEnd.split(":")[1]
 
-            if (Integer.parseInt(shiftStart) == 24) {
-                shiftStart = "0"
+            if (Integer.parseInt(shiftStartHr) == 24) {
+                shiftStartHr = "0"
             }
-            if (time[0] in shiftStart..shiftEnd) {
+            if (time[0] in shiftStartHr..shiftEndHr && shiftEndHr != time[0]) {
                 Timber.d(program.toString())
+                return program
+            } else if (time[0] in shiftStartHr..shiftEndHr && shiftEndHr == time[0] && time[1] <= "00") {
                 return program
             }
         }
-        return programs.get(programs.lastIndex)
+        return programs[programs.lastIndex]
 
     }
 

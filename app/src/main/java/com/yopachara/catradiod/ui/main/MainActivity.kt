@@ -3,7 +3,10 @@ package com.yopachara.catradiod.ui.main
 import android.app.DialogFragment
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.Toolbar
@@ -70,7 +73,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
     lateinit var presenter: MainPresenter
 
     lateinit var adapter: TweetTimelineListAdapter
-
+    lateinit private var filterAdapter: Adapter
     override fun showRibotsEmpty() {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -105,7 +108,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
             tv_song_artist.text = "${cat.now?.song} - ${cat.now?.name}"
         } else {
             mRadioManager.updateNotification("no", "song", R.drawable.default_art, R.drawable.default_art)
-            tv_song_artist.text = "no song now"
+            tv_song_artist.text = getString(R.string.no_song_available)
         }
     }
 
@@ -154,11 +157,25 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         mColors = resources.getIntArray(R.array.colors)
         mTitles = resources.getStringArray(R.array.job_titles)
 
-        mFilter.adapter = Adapter(getTags())
+
+        filterAdapter = Adapter(getTags())
+        mFilter.adapter = filterAdapter
+
         mFilter.listener = this
         mFilter.noSelectedItemText = getString(R.string.str_all_selected)
         mFilter.build()
         presenter.syncDj()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val packageName: String = packageName;
+            val pm: PowerManager = getSystemService(Context.POWER_SERVICE) as PowerManager;
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                val intent: Intent = Intent()
+                intent.action = android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
+                intent.data = Uri.parse("package:" + packageName);
+                startActivity(intent);
+            }
+        }
     }
 
 
@@ -181,7 +198,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
 
     override fun onNothingSelected() {
-        query(getFilterArray(mTitles!!))
+        query("#หนังหน้าแมว")
         Timber.i("onNothingSelected")
     }
 
@@ -376,7 +393,14 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
     }
 
+
     internal inner class Adapter(items: List<Tag>) : FilterAdapter<Tag>(items) {
+        override var items: List<Tag> = items
+            get() = super.items
+
+        fun setNewData(items: List<Tag>) {
+            this.items = items
+        }
 
         override fun createView(position: Int, item: Tag): FilterItem {
             val filterItem = FilterItem(this@MainActivity)

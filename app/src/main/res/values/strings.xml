@@ -20,16 +20,22 @@
     <string name="radio_state_playing">สถานะ : กำลังเล่น</string>
     <string name="radio_state_loading">สถานะ : กำลังโหลด</string>
     <string name="radio_state_idle">สถานะ : ว่าง</string>
-    <string name="about_me">About Me</string>
+    <string name="about_me">เกี่ยวกับ</string>
 
     <string name="dark_theme">Dark Theme</string>
     <string name="light_theme">Light Theme</string>
     <string name="custom_theme">Custom Theme</string>
+    <string name="no_song_available">ไม่มีเพลงเล่นขณะนี้</string>
+    <string name="add_remove_hashtag">เพิ่ม/ลบ แฮชแท็ก</string>
 
     <string-array name="job_titles">
         <item>#catradio</item>
         <item>#หนังหน้าแมว</item>
         <item>#จดหมายเด็กแมว</item>
+        <item>#คนขอแมว</item>
+        <item>#แมวนอก</item>
+        <item>#แมวสด</item>
+        <item>#แมวค้นคน</item>
+        <item>#หมอสองสามมิติ</item>
     </string-array>
-
 </resources>

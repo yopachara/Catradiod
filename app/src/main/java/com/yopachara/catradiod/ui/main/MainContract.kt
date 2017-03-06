@@ -14,6 +14,8 @@ object MainContract {
         fun showRibotsEmpty()
         fun showSong(cat : Cat)
         fun showDj(dj: Program)
+//        fun showFilterDialog()
+//        fun reloadSearchFilter()
     }
 
     abstract class Presenter: BaseMvpPresenter<View>() {
