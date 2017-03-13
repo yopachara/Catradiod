@@ -6,58 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:orientation="horizontal">
+    <LinearLayout android:id="@+id/notification_base"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="68dp"
+                  android:gravity="center_vertical"
+                  android:orientation="horizontal"
+                  tools:ignore="ContentDescription">
+
+        <ImageView
+            android:id="@+id/notification_image"
+            android:layout_width="@dimen/notification_big_icon_width"
+            android:layout_height="@dimen/notification_big_icon_height"
+            android:gravity="center"
+            android:src="@drawable/ic_album_black_48dp"/>
+
+        <LinearLayout
+            android:id="@+id/layoutTexts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/notification_info_container_padding_bottom"
+            android:paddingLeft="@dimen/notification_info_container_padding_left">
+
+            <TextView
+                android:id="@+id/tv_song_artist"
+                style="@style/NotificationText"
+                android:text="@string/no_song_available"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent.Title"
+                android:textColor="@color/tw__composer_black"/>
+
+            <TextView
+                android:id="@+id/textviewControl"
+                style="@style/NotificationText"
+                android:text="@string/radio_state_idle"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent"
+            />
+
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/notification_play"
             style="@style/NotificationAction.Play"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:src="@drawable/btn_playback_play"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_constraintLeft_creator="1"/>
+            android:src="@drawable/ic_play_arrow_black_24dp"/>
 
         <ImageView
             android:id="@+id/notification_collapse"
             style="@style/NotificationAction.Collapse"
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="168dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/btn_notification_collapse"
-            app:layout_constraintBottom_toBottomOf="@+id/notification_play"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toRightOf="@+id/notification_play"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/notification_play"/>
+            android:src="@drawable/ic_close_black_24dp"/>
 
-
-        <TextView
-            android:id="@+id/textviewControl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="8dp"
-            android:text="RADIO STATE : IDLE"
-            android:textColor="@color/tw__composer_white"
-            app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
-            app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="@+id/notification_collapse"/>
-        <TextView
-            android:id="@+id/tv_song_artist"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="song name"
-            android:textColor="@color/tw__composer_white"
-            app:layout_constraintBottom_toBottomOf="@+id/notification_collapse"
-            app:layout_constraintLeft_toRightOf="@+id/notification_collapse"
-            app:layout_constraintRight_toRightOf="parent"/>
-    </android.support.constraint.ConstraintLayout>
-
+    </LinearLayout>
 </LinearLayout>

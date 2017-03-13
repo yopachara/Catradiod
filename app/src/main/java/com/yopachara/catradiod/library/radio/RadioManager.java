@@ -8,8 +8,12 @@ import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.yopachara.catradiod.ui.main.MainPresenter;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by mertsimsek on 03/07/15.
@@ -20,7 +24,6 @@ public class RadioManager implements IRadioManager {
      * Logging enable/disable
      */
     private static boolean isLogging = false;
-
     /**
      * Singleton
      */
@@ -89,7 +92,7 @@ public class RadioManager implements IRadioManager {
      */
     @Override
     public void stopRadio() {
-        mService.stop();
+        mService.stopFromNotification();
     }
 
     /**
@@ -175,12 +178,14 @@ public class RadioManager implements IRadioManager {
      * @param singerName
      * @param songName
      * @param smallArt
-     * @param bigArt
+     * @param resource
      */
+
+//    @Nullable String song, @Nullable String name, int default_art, @Nullable Bitmap resource
     @Override
-    public void updateNotification(String singerName, String songName, int smallArt, Bitmap bigArt) {
+    public void updateNotification(String singerName, String songName, int smallArt, Bitmap resource) {
         if(mService != null)
-            mService.updateNotification(singerName, songName, smallArt, bigArt);
+            mService.updateNotification(singerName, songName, smallArt, resource);
     }
 
     /**

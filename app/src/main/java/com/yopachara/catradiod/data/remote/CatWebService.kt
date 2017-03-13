@@ -9,4 +9,6 @@ interface CatWebService {
     @GET("service/web_service/dj")
     fun getDj(): Observable<DjSchedule>
 
+//    @GET("/admin/pix/single/{id}_medium.jpg")
+//    fun getSongPhoto(): Observable
 }

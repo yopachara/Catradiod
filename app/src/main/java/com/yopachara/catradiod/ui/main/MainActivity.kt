@@ -3,6 +3,7 @@ package com.yopachara.catradiod.ui.main
 import android.app.DialogFragment
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,7 +16,10 @@ import android.view.*
 import android.widget.AbsListView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.bumptech.glide.BitmapRequestBuilder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.SimpleTarget
 import com.github.nisrulz.sensey.Sensey
 import com.github.nisrulz.sensey.TouchTypeDetector
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -104,12 +108,56 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 
     override fun showSong(cat: Cat) {
         if (cat.now != null) {
-            mRadioManager.updateNotification(cat.now?.song, cat.now?.name, R.drawable.default_art, R.drawable.default_art)
+            getImage(cat)
             tv_song_artist.text = "${cat.now?.song} - ${cat.now?.name}"
         } else {
-            mRadioManager.updateNotification("no", "song", R.drawable.default_art, R.drawable.default_art)
+            presenter.setDjToNotification()
+//            mRadioManager.updateNotification("no", "song", R.drawable.ic_launcher_app, R.drawable.ic_launcher_app)
+            notification_image.setImageResource(R.drawable.ic_album_black_48dp)
             tv_song_artist.text = getString(R.string.no_song_available)
         }
+
+    }
+
+    override fun showDjNoti(dj: Program) {
+
+        try {
+            val url: String = dj.shiftThumb
+            Glide.with(applicationContext)
+                    .load(url)
+                    .asBitmap()
+                    .into(object : SimpleTarget<Bitmap>(250, 250) {
+                        override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>?) {
+                            mRadioManager.updateNotification(dj.shiftTitle, dj.shortDesc, R.drawable.ic_launcher_app, resource)
+                            notification_image.setImageBitmap(resource)
+                        }
+                    })
+        } catch (e: Exception) {
+            Timber.e(e)
+            mRadioManager.updateNotification(dj.shiftTitle, dj.shortDesc, R.drawable.ic_launcher_app, R.drawable.ic_launcher_app)
+            notification_image.setImageResource(R.drawable.ic_album_black_48dp)
+        }
+
+    }
+
+    fun getImage(cat: Cat) {
+        try {
+            val url: String = "http://cms.thisiscat.tk/admin/pix/single/${cat.now!!.id}_medium.jpg"
+            Glide.with(applicationContext)
+                    .load(url)
+                    .asBitmap()
+                    .into(object : SimpleTarget<Bitmap>(250, 250) {
+                        override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>?) {
+                            mRadioManager.updateNotification(cat.now?.song, cat.now?.name, R.drawable.ic_launcher_app, resource)
+                            notification_image.setImageBitmap(resource)
+                        }
+                    })
+        } catch (e: Exception) {
+            Timber.e(e)
+            mRadioManager.updateNotification(cat.now?.song, cat.now?.name, R.drawable.ic_launcher_app, R.drawable.ic_launcher_app)
+            notification_image.setImageResource(R.drawable.ic_album_black_48dp)
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,6 +186,7 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         notification_play.setOnClickListener { initializeUI() }
         notification_collapse.setOnClickListener {
             mRadioManager.stopRadio()
+            presenter.clearComposite()
         }
         mSliding.anchorPoint = 0.5f
         mSliding.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
@@ -166,16 +215,6 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
         mFilter.build()
         presenter.syncDj()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val packageName: String = packageName;
-            val pm: PowerManager = getSystemService(Context.POWER_SERVICE) as PowerManager;
-            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
-                val intent: Intent = Intent()
-                intent.action = android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
-                intent.data = Uri.parse("package:" + packageName);
-                startActivity(intent);
-            }
-        }
     }
 
 
@@ -257,7 +296,6 @@ class MainActivity : BaseActivity(), MainContract.View, RadioListener, SwipeRefr
 //                mRadioManager.updateNotification(cat.next?.song, cat.next?.name, R.drawable.default_art, R.drawable.default_art)
 //            })
             presenter.loadRibots()
-            mRadioManager.updateNotification("test", "test", R.drawable.default_art, R.drawable.default_art)
         } else {
             mRadioManager.stopRadio()
         }

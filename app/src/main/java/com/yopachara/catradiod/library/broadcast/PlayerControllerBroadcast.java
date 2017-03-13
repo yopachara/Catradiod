@@ -13,7 +13,7 @@ import com.yopachara.catradiod.library.radio.RadioPlayerService;
 /**
  * Created by mertsimsek on 04/11/15.
  */
-public class PlayerControllerBroadcast extends BroadcastReceiver{
+public class PlayerControllerBroadcast extends BroadcastReceiver {
 
     /**
      * This receiver receives STOP controlling between player services
@@ -23,6 +23,7 @@ public class PlayerControllerBroadcast extends BroadcastReceiver{
      * playing radio stream, RadioPlayerService will be stopped here when MediaPlayerService
      * requested play media. This is the way we communicate between services to stop
      * each other.
+     *
      * @param context
      * @param intent
      */
@@ -34,36 +35,31 @@ public class PlayerControllerBroadcast extends BroadcastReceiver{
 
         String action = intent.getAction();
 
-        if(action.equals(MediaPlayerService.ACTION_RADIOPLAYER_STOP)
+        if (action.equals(MediaPlayerService.ACTION_RADIOPLAYER_STOP)
                 && isRadioServiceBinded
-                && RadioManager.getService().isPlaying()){
+                && RadioManager.getService().isPlaying()) {
             RadioManager.getService().stop();
-        }
-        else if(action.equals(RadioPlayerService.ACTION_MEDIAPLAYER_STOP)
+        } else if (action.equals(RadioPlayerService.ACTION_MEDIAPLAYER_STOP)
                 && isMediaServiceBinded
-                && MediaManager.getService().isPlaying()){
+                && MediaManager.getService().isPlaying()) {
             MediaManager.getService().stop();
-        }
-
-        else if(action.equals(RadioPlayerService.NOTIFICATION_INTENT_PLAY_PAUSE)
-                && isRadioServiceBinded){
-            if(RadioManager.getService().isPlaying())
+        } else if (action.equals(RadioPlayerService.NOTIFICATION_INTENT_PLAY_PAUSE)
+                && isRadioServiceBinded) {
+            if (RadioManager.getService().isPlaying())
                 RadioManager.getService().stop();
             else
                 RadioManager.getService().resume();
-        }else if(action.equals(RadioPlayerService.NOTIFICATION_INTENT_CANCEL)
-                && isRadioServiceBinded){
+        } else if (action.equals(RadioPlayerService.NOTIFICATION_INTENT_CANCEL)
+                && isRadioServiceBinded) {
             RadioManager.getService().stopFromNotification();
-        }
-
-        else if(action.equals(MediaPlayerService.NOTIFICATION_INTENT_PLAY_PAUSE)
-                && isMediaServiceBinded){
-            if(MediaManager.getService().isPlaying())
+        } else if (action.equals(MediaPlayerService.NOTIFICATION_INTENT_PLAY_PAUSE)
+                && isMediaServiceBinded) {
+            if (MediaManager.getService().isPlaying())
                 MediaManager.getService().pause();
             else
                 MediaManager.getService().resume();
-        }else if(action.equals(MediaPlayerService.NOTIFICATION_INTENT_CANCEL)
-                && isMediaServiceBinded){
+        } else if (action.equals(MediaPlayerService.NOTIFICATION_INTENT_CANCEL)
+                && isMediaServiceBinded) {
             MediaManager.getService().stopFromNotification();
         }
 

@@ -32,11 +32,44 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
         compositeSubscription.clear()
     }
 
+    fun clearComposite(){
+        compositeSubscription.clear()
+    }
+
     fun millis2String(millis: Long): String {
         return SimpleDateFormat(DEFAULT_PATTERN, Locale.getDefault()).format(Date(millis))
     }
 
     var dj = dataManager.getPreferenceHelper().getDjSchedule()
+
+
+    fun getScheduleForNoti(dj: DjSchedule) {
+        val calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_WEEK)
+        when (day) {
+            Calendar.SUNDAY -> {
+                view.showDjNoti(getProgram(dj.data.sunday))
+            }
+            Calendar.MONDAY -> {
+                view.showDjNoti(getProgram(dj.data.monday))
+            }
+            Calendar.TUESDAY -> {
+                view.showDjNoti(getProgram(dj.data.tuesday))
+            }
+            Calendar.WEDNESDAY -> {
+                view.showDjNoti(getProgram(dj.data.wednesday))
+            }
+            Calendar.THURSDAY -> {
+                view.showDjNoti(getProgram(dj.data.thursday))
+            }
+            Calendar.FRIDAY -> {
+                view.showDjNoti(getProgram(dj.data.friday))
+            }
+            Calendar.SATURDAY -> {
+                view.showDjNoti(getProgram(dj.data.saturday))
+            }
+        }
+    }
 
     fun getSchedule(dj: DjSchedule) {
         val calendar = Calendar.getInstance()
@@ -87,6 +120,27 @@ constructor(private val dataManager: DataManager) : MainContract.Presenter() {
         }
         return programs[programs.lastIndex]
 
+    }
+
+    override fun setDjToNotification(){
+        if (dj.data != null) {
+            getScheduleForNoti(dj)
+        } else {
+            dataManager.getSchedule()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({
+                        dj ->
+                        run {
+                            getScheduleForNoti(dj)
+//                            Timber.d(dj.toString())
+//                            view.showDj(dj)
+                        }
+                    }, {
+                        e ->
+                        Timber.e(e)
+                    })
+        }
     }
 
     override fun syncDj() {

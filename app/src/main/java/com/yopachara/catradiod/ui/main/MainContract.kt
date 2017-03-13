@@ -14,6 +14,7 @@ object MainContract {
         fun showRibotsEmpty()
         fun showSong(cat : Cat)
         fun showDj(dj: Program)
+        fun showDjNoti(dj : Program)
 //        fun showFilterDialog()
 //        fun reloadSearchFilter()
     }
@@ -21,5 +22,6 @@ object MainContract {
     abstract class Presenter: BaseMvpPresenter<View>() {
         abstract fun loadRibots()
         abstract fun syncDj()
+        abstract fun setDjToNotification()
     }
 }

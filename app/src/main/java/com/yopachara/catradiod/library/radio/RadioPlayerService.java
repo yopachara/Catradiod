@@ -66,7 +66,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
      */
     private String singerName = "";
     private String songName = "";
-    private int smallImage = R.drawable.default_art;
+    private int smallImage = R.drawable.ic_launcher_app;
     private Bitmap artImage;
 
     /**
@@ -188,8 +188,11 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
                 isClosedFromNotification = true;
                 stop();
             }
-            if (mNotificationManager != null)
-                mNotificationManager.cancel(NOTIFICATION_ID);
+//            if (mNotificationManager != null)
+//                mNotificationManager.cancel(NOTIFICATION_ID);
+
+//            startForeground(NOTIFICATION_ID, new Notification());
+            stopForeground(true);
         }
         /**
          * If play/pause action clicked on notification,
@@ -246,7 +249,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
     }
 
     public void stop() {
-        radioPlayer.setPlayWhenReady(false);
+        radioPlayer.stop();
         mRadioState = State.STOPPED;
 
         /**
@@ -262,9 +265,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
     }
 
     public boolean isPlaying() {
-        if (State.PLAYING == mRadioState)
-            return true;
-        return false;
+        return State.PLAYING == mRadioState;
     }
 
     public void resume() {
@@ -274,7 +275,10 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
 
     public void stopFromNotification() {
         isClosedFromNotification = true;
-        if (mNotificationManager != null) mNotificationManager.cancelAll();
+//        if (mNotificationManager != null) mNotificationManager.cancelAll();
+//        startForeground(NOTIFICATION_ID,new Notification());
+        stopForeground(true);
+
         stop();
     }
 
@@ -495,8 +499,9 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
             notification.bigContentView = mExpandedView;
         }
 
-        if (mNotificationManager != null)
-            mNotificationManager.notify(NOTIFICATION_ID, notification);
+//        if (mNotificationManager != null)
+//            mNotificationManager.notify(NOTIFICATION_ID, notification);
+        startForeground(NOTIFICATION_ID, notification);
 
     }
 
@@ -544,7 +549,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
 
-        if(playbackState == ExoPlayer.STATE_READY){
+        if (playbackState == ExoPlayer.STATE_READY) {
 
             mRadioState = State.PLAYING;
             buildNotification();
