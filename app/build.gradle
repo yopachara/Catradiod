@@ -9,10 +9,10 @@ android {
     buildToolsVersion "25.0.2"
     signingConfigs {
         release {
-            storeFile file('/Users/yopachara/Desktop/yopachara.jks')
-            storePassword "!Qq!147852"
-            keyAlias "yopachara"
-            keyPassword "!Qq!147852"
+            storeFile file('')
+            storePassword ""
+            keyAlias ""
+            keyPassword ""
         }
     }
     defaultConfig {
